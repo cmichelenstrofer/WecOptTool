@@ -15,17 +15,22 @@ API Documentation
    :toctree:
 
 
-
-   wecopttool.geom
-
-
-   wecopttool.pto
+   controllers
 
 
-   wecopttool.utilities
+   core
 
 
-   wecopttool.waves
+   geom
+
+
+   pto
+
+
+   utilities
+
+
+   waves
 
 
 
@@ -63,7 +68,7 @@ API Documentation
     fd_to_td
     force_from_impedance
     force_from_rao_transfer_function
-    force_from_waves
+    force_from_wave
     frequency
     frequency_parameters
     hydrodynamic_impedance
