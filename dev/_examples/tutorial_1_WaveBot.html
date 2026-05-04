@@ -6,21 +6,21 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tutorial 1 - WaveBot &mdash; WecOptTool 3.1.1 documentation</title>
+  <title>Tutorial 1 - WaveBot &mdash; WecOptTool 3.2.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=a0fb6060" />
       <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
 
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=796a81b5"></script>
-      <script src="../_static/doctools.js?v=9bcbadda"></script>
-      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/documentation_options.js?v=eb155f5e"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
       <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -137,7 +137,8 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">autograd.numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">jax.numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">jnp</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">capytaine</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cpy</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">capytaine.io.meshio</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_from_meshio</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
@@ -161,7 +162,7 @@
 <li><p>The objective function</p></li>
 </ul>
 <p>The graphic below shows all the requirements for this first part of the tutorial: the wave environment on the left, the WEC object(with its relevant subcomponents) in the blue box in the middle, and the objective function (mechanical power) on the right.</p>
-<div><p><img alt="ece99880633b42a9b987c661aacec1d2" class="no-scaled-link" src="https://live.staticflickr.com/65535/52435098523_37d6a2ca94_k.jpg" style="width: 1000px;" /></p>
+<div><p><img alt="d1da19af5606481fa1cb84d43e6d593f" class="no-scaled-link" src="https://live.staticflickr.com/65535/52435098523_37d6a2ca94_k.jpg" width="1000" /></p>
 </div><section id="Waves-and-WEC-geometry">
 <h3>Waves and WEC geometry<a class="headerlink" href="#Waves-and-WEC-geometry" title="Link to this heading"></a></h3>
 <p>The pseudo-spectral solution used in WecOptTool requires a specified set of frequencies to analyze. To model the WEC accurately, we need to ensure the set of selected frequencies captures the full hydrodynamic response range of the WEC.</p>
@@ -341,7 +342,7 @@ WARNING:wecopttool.core:Using the geometric centroid as the center of gravity (C
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area rendered_html docutils container">
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[18:58:50] </span><span style="color: #808000; text-decoration-color: #808000">WARNING </span> Using the geometric centroid as the center of gravity <span style="font-weight: bold">(</span>COG<span style="font-weight: bold">)</span>.
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[19:08:21] </span><span style="color: #808000; text-decoration-color: #808000">WARNING </span> Using the geometric centroid as the center of gravity <span style="font-weight: bold">(</span>COG<span style="font-weight: bold">)</span>.
 </pre></div>
 </div>
 <div class="nboutput docutils container">
@@ -384,10 +385,6 @@ WARNING:wecopttool.core:FloatingBody has no inertia_matrix or mass field. The ma
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/bodies/bodies.py:663: FutureWarning: In a future version of xarray the default value for join will change from join=&#39;outer&#39; to join=&#39;exact&#39;. This change will result in the following ValueError: cannot be aligned with join=&#39;exact&#39; because index/labels/sizes are not equal along these coordinates (dimensions): &#39;influenced_dof&#39; (&#39;influenced_dof&#39;,) The recommendation is to set join explicitly for this case.
-  total_mass_xr = xr.merge([rigid_inertia_matrix_xr, other_dofs_inertia_matrix_xr], compat=&#34;override&#34;).inertia_matrix
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/bodies/bodies.py:663: FutureWarning: In a future version of xarray the default value for join will change from join=&#39;outer&#39; to join=&#39;exact&#39;. This change will result in the following ValueError: cannot be aligned with join=&#39;exact&#39; because index/labels/sizes are not equal along these coordinates (dimensions): &#39;radiating_dof&#39; (&#39;radiating_dof&#39;,) The recommendation is to set join explicitly for this case.
-  total_mass_xr = xr.merge([rigid_inertia_matrix_xr, other_dofs_inertia_matrix_xr], compat=&#34;override&#34;).inertia_matrix
 WARNING:wecopttool.core:FloatingBody has no hydrostatic_stiffness field. Capytaine will auto-populate the hydrostatic stiffness based on the provided mesh.
 </pre></div></div>
 </div>
@@ -422,34 +419,13 @@ This warning appears when the largest panel of this mesh has radius &gt; wavelen
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "6c68f307e503484cbafd760de19c1036"}</script></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area rendered_html docutils container">
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"></pre></div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "82e222bbf7554179a183008b59b60243"}</script></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:260: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, {body_property: bodies_properties}])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:522: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, hydrostatics_dataset(bodies)])
-</pre></div></div>
+<div class="output_area rendered_html docutils container">
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"></pre></div>
 </div>
 <p>Next, we use the utilities class <code class="docutils literal notranslate"><span class="pre">wecopttool.utilities</span></code>, which has functions that help you analyze and design WECs, but are not needed for the core function of WecOptTool. For example, we calculate the WEC’s intrinsic impedance with its hydrodynamic coefficients and inherent inertial properties. We make use of <code class="docutils literal notranslate"><span class="pre">wecopttool.add_linear_friction()</span></code> to convert the <code class="docutils literal notranslate"><span class="pre">bem_data</span></code> into a dataset which contains all zero friction data, because <code class="docutils literal notranslate"><span class="pre">wecopttool.check_radiation_damping()</span></code> and
 <code class="docutils literal notranslate"><span class="pre">wecopttool.hydrodynamic_impedance()</span></code> expect a data variable called ‘friction’.</p>
@@ -482,7 +458,7 @@ WARNING:wecopttool.core:Linear damping for DOF &#34;Heave&#34; has negative or c
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area rendered_html docutils container">
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[19:00:08] </span><span style="color: #808000; text-decoration-color: #808000">WARNING </span> Linear damping for DOF <span style="color: #008000; text-decoration-color: #008000">"Heave"</span> has negative or close to zero terms. Shifting up damping terms
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[19:09:40] </span><span style="color: #808000; text-decoration-color: #808000">WARNING </span> Linear damping for DOF <span style="color: #008000; text-decoration-color: #008000">"Heave"</span> has negative or close to zero terms. Shifting up damping terms
 <span style="color: #7fbfbf; text-decoration-color: #7fbfbf">           </span>         <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">9</span><span style="font-weight: bold">]</span> to a minimum of <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1e-06</span> N/<span style="font-weight: bold">(</span>m/s<span style="font-weight: bold">)</span>
 </pre></div>
 </div>
@@ -534,7 +510,7 @@ this results in a max PTO linear force of <span class="math notranslate nohighli
 
 <span class="k">def</span><span class="w"> </span><span class="nf">const_f_pto</span><span class="p">(</span><span class="n">wec</span><span class="p">,</span> <span class="n">x_wec</span><span class="p">,</span> <span class="n">x_opt</span><span class="p">,</span> <span class="n">wave</span><span class="p">):</span> <span class="c1"># Format for scipy.optimize.minimize</span>
     <span class="n">f</span> <span class="o">=</span> <span class="n">pto</span><span class="o">.</span><span class="n">force</span><span class="p">(</span><span class="n">wec</span><span class="p">,</span> <span class="n">x_wec</span><span class="p">,</span> <span class="n">x_opt</span><span class="p">,</span> <span class="n">wave</span><span class="p">,</span> <span class="n">nsubsteps</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">f_max</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">f_max</span> <span class="o">-</span> <span class="n">jnp</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
 
 <span class="n">ineq_cons</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ineq&#39;</span><span class="p">,</span>
              <span class="s1">&#39;fun&#39;</span><span class="p">:</span> <span class="n">const_f_pto</span><span class="p">,</span>
@@ -572,7 +548,7 @@ WARNING:wecopttool.core:Linear damping for DOF &#34;Heave&#34; has negative or c
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area rendered_html docutils container">
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">           </span><span style="color: #808000; text-decoration-color: #808000">WARNING </span> Linear damping for DOF <span style="color: #008000; text-decoration-color: #008000">"Heave"</span> has negative or close to zero terms. Shifting up damping terms
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[19:09:41] </span><span style="color: #808000; text-decoration-color: #808000">WARNING </span> Linear damping for DOF <span style="color: #008000; text-decoration-color: #008000">"Heave"</span> has negative or close to zero terms. Shifting up damping terms
 <span style="color: #7fbfbf; text-decoration-color: #7fbfbf">           </span>         <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">9</span><span style="font-weight: bold">]</span> to a minimum of <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1e-06</span> N/<span style="font-weight: bold">(</span>m/s<span style="font-weight: bold">)</span>
 </pre></div>
 </div>
@@ -644,18 +620,18 @@ frequency.</p>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Optimization terminated successfully    (Exit mode 0)
-            Current function value: -0.4829535130282339
-            Iterations: 13
-            Function evaluations: 13
-            Gradient evaluations: 13
-Optimal average mechanical power: -48.29535130282339 W
+            Current function value: -0.48295373134379277
+            Iterations: 11
+            Function evaluations: 11
+            Gradient evaluations: 11
+Optimal average mechanical power: -48.295373134379275 W
 </pre></div></div>
 </div>
 </section>
 <section id="Analyzing-results">
 <h3>Analyzing results<a class="headerlink" href="#Analyzing-results" title="Link to this heading"></a></h3>
 <p>We will use two post-processing functions to obtain frequency and time domain results for the WEC and PTO responses. The <code class="docutils literal notranslate"><span class="pre">wec.post_process</span></code> and <code class="docutils literal notranslate"><span class="pre">pto.post_process</span></code> functions both post-process the results for each wave phase realization. The pseudo-spectral method gives continuous in time results. To get smoother looking plots, we specify five subpoints betweeen co-location points.</p>
-<div class="nbinput docutils container">
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
@@ -664,19 +640,6 @@ Optimal average mechanical power: -48.29535130282339 W
 <span class="n">wec_fdom</span><span class="p">,</span> <span class="n">wec_tdom</span> <span class="o">=</span> <span class="n">wec</span><span class="o">.</span><span class="n">post_process</span><span class="p">(</span><span class="n">wec</span><span class="p">,</span> <span class="n">results</span><span class="p">,</span> <span class="n">waves</span><span class="p">,</span> <span class="n">nsubsteps</span><span class="o">=</span><span class="n">nsubsteps</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/home/runner/work/WecOptTool/WecOptTool/wecopttool/core.py:964: FutureWarning: In a future version of xarray the default value for join will change from join=&#39;outer&#39; to join=&#39;exact&#39;. This change will result in the following ValueError: cannot be aligned with join=&#39;exact&#39; because index/labels/sizes are not equal along these coordinates (dimensions): &#39;omega&#39; (&#39;omega&#39;,) The recommendation is to set join explicitly for this case.
-  results_fd = xr.merge([fd_state, fd_forces, wave])
-/home/runner/work/WecOptTool/WecOptTool/wecopttool/core.py:964: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  results_fd = xr.merge([fd_state, fd_forces, wave])
-/home/runner/work/WecOptTool/WecOptTool/wecopttool/core.py:964: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  results_fd = xr.merge([fd_state, fd_forces, wave])
-</pre></div></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">pto.post_process</span></code> function returns a list of <code class="docutils literal notranslate"><span class="pre">xarray.Dataset</span></code> objects, each element of which has built-in integration with PyPlot for smart plotting with automatic titles and formatting. We will plot the mechanical power (<code class="docutils literal notranslate"><span class="pre">mech_power</span></code>), position (<code class="docutils literal notranslate"><span class="pre">pos</span></code>), and the PTO force (<code class="docutils literal notranslate"><span class="pre">force</span></code>).</p>
 <div class="nbinput docutils container">
@@ -694,7 +657,7 @@ Optimal average mechanical power: -48.29535130282339 W
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x7f63c289e4b0&gt;]
+[&lt;matplotlib.lines.Line2D at 0x7f9fbc462fc0&gt;]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -723,7 +686,7 @@ Optimal average mechanical power: -48.29535130282339 W
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x7f63c2c28dd0&gt;]
+[&lt;matplotlib.lines.Line2D at 0x7f9fbbf00ad0&gt;]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -769,9 +732,7 @@ Optimal average mechanical power: -48.29535130282339 W
 </symbol>
 </defs>
 </svg>
-<style>/* CSS stylesheet for displaying xarray objects in jupyterlab.
- *
- */
+<style>/* CSS stylesheet for displaying xarray objects in notebooks */
 
 :root {
   --xr-font-color0: var(
@@ -850,6 +811,8 @@ body.vscode-dark {
   display: block !important;
   min-width: 300px;
   max-width: 700px;
+  line-height: 1.6;
+  padding-bottom: 4px;
 }
 
 .xr-text-repr-fallback {
@@ -860,8 +823,11 @@ body.vscode-dark {
 .xr-header {
   padding-top: 6px;
   padding-bottom: 6px;
-  margin-bottom: 4px;
+}
+
+.xr-header {
   border-bottom: solid 1px var(--xr-border-color);
+  margin-bottom: 4px;
 }
 
 .xr-header > div,
@@ -872,46 +838,62 @@ body.vscode-dark {
 }
 
 .xr-obj-type,
-.xr-array-name {
+.xr-obj-name {
   margin-left: 2px;
   margin-right: 10px;
 }
 
-.xr-obj-type {
+.xr-obj-type,
+.xr-group-box-contents > label {
   color: var(--xr-font-color2);
+  display: block;
 }
 
 .xr-sections {
   padding-left: 0 !important;
   display: grid;
   grid-template-columns: 150px auto auto 1fr 0 20px 0 20px;
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
 
 .xr-section-item {
   display: contents;
 }
 
-.xr-section-item input {
-  display: inline-block;
+.xr-section-item > input,
+.xr-group-box-contents > input,
+.xr-array-wrap > input {
+  display: block;
   opacity: 0;
   height: 0;
+  margin: 0;
 }
 
-.xr-section-item input + label {
+.xr-section-item > input + label,
+.xr-var-item > input + label {
   color: var(--xr-disabled-color);
-  border: 2px solid transparent !important;
 }
 
-.xr-section-item input:enabled + label {
+.xr-section-item > input:enabled + label,
+.xr-var-item > input:enabled + label,
+.xr-array-wrap > input:enabled + label,
+.xr-group-box-contents > input:enabled + label {
   cursor: pointer;
   color: var(--xr-font-color2);
 }
 
-.xr-section-item input:focus + label {
-  border: 2px solid var(--xr-font-color0) !important;
+.xr-section-item > input:focus-visible + label,
+.xr-var-item > input:focus-visible + label,
+.xr-array-wrap > input:focus-visible + label,
+.xr-group-box-contents > input:focus-visible + label {
+  outline: auto;
 }
 
-.xr-section-item input:enabled + label:hover {
+.xr-section-item > input:enabled + label:hover,
+.xr-var-item > input:enabled + label:hover,
+.xr-array-wrap > input:enabled + label:hover,
+.xr-group-box-contents > input:enabled + label:hover {
   color: var(--xr-font-color0);
 }
 
@@ -919,11 +901,25 @@ body.vscode-dark {
   grid-column: 1;
   color: var(--xr-font-color2);
   font-weight: 500;
+  white-space: nowrap;
+}
+
+.xr-section-summary > em {
+  font-weight: normal;
+}
+
+.xr-span-grid {
+  grid-column-end: -1;
 }
 
 .xr-section-summary > span {
   display: inline-block;
-  padding-left: 0.5em;
+  padding-left: 0.3em;
+}
+
+.xr-group-box-contents > input:checked + label > span {
+  display: inline-block;
+  padding-left: 0.6em;
 }
 
 .xr-section-summary-in:disabled + label {
@@ -951,9 +947,9 @@ body.vscode-dark {
 }
 
 .xr-section-summary,
-.xr-section-inline-details {
+.xr-section-inline-details,
+.xr-group-box-contents > label {
   padding-top: 4px;
-  padding-bottom: 4px;
 }
 
 .xr-section-inline-details {
@@ -961,13 +957,79 @@ body.vscode-dark {
 }
 
 .xr-section-details {
-  display: none;
   grid-column: 1 / -1;
+  margin-top: 4px;
   margin-bottom: 5px;
+}
+
+.xr-section-summary-in ~ .xr-section-details {
+  display: none;
 }
 
 .xr-section-summary-in:checked ~ .xr-section-details {
   display: contents;
+}
+
+.xr-children {
+  display: inline-grid;
+  grid-template-columns: 100%;
+  grid-column: 1 / -1;
+  padding-top: 4px;
+}
+
+.xr-group-box {
+  display: inline-grid;
+  grid-template-columns: 0px 30px auto;
+}
+
+.xr-group-box-vline {
+  grid-column-start: 1;
+  border-right: 0.2em solid;
+  border-color: var(--xr-border-color);
+  width: 0px;
+}
+
+.xr-group-box-hline {
+  grid-column-start: 2;
+  grid-row-start: 1;
+  height: 1em;
+  width: 26px;
+  border-bottom: 0.2em solid;
+  border-color: var(--xr-border-color);
+}
+
+.xr-group-box-contents {
+  grid-column-start: 3;
+  padding-bottom: 4px;
+}
+
+.xr-group-box-contents > label::before {
+  content: "📂";
+  padding-right: 0.3em;
+}
+
+.xr-group-box-contents > input:checked + label::before {
+  content: "📁";
+}
+
+.xr-group-box-contents > input:checked + label {
+  padding-bottom: 0px;
+}
+
+.xr-group-box-contents > input:checked ~ .xr-sections {
+  display: none;
+}
+
+.xr-group-box-contents > input + label > span {
+  display: none;
+}
+
+.xr-group-box-ellipsis {
+  font-size: 1.4em;
+  font-weight: 900;
+  color: var(--xr-font-color2);
+  letter-spacing: 0.15em;
+  cursor: default;
 }
 
 .xr-array-wrap {
@@ -1205,13 +1267,13 @@ Coordinates:
   * type     (type) &lt;U4 32B &#x27;mech&#x27; &#x27;elec&#x27;
 Dimensions without coordinates: realization
 Data variables:
-    pos      (realization, time, dof) float64 800B 0.06596 0.06788 ... 0.06412
-    vel      (realization, time, dof) float64 800B 0.05669 0.05826 ... 0.0535
-    acc      (realization, time, dof) float64 800B 0.07297 0.01983 ... 0.1164
-    force    (realization, time, dof) float64 800B 750.0 750.6 ... 715.2 740.3
-    power    (realization, type, time, dof) float64 2kB 42.52 43.73 ... 39.61
+    pos      (realization, time, dof) float64 800B ...
+    vel      (realization, time, dof) float64 800B ...
+    acc      (realization, time, dof) float64 800B ...
+    force    (realization, time, dof) float64 800B ...
+    power    (realization, type, time, dof) float64 2kB 42.47 43.72 ... 39.52
 Attributes:
-    time_created_utc:  2025-09-24 19:00:09.591474</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.Dataset</div></div><ul class='xr-sections'><li class='xr-section-item'><input id='section-3e893d5b-6e44-4e5f-b46a-df576e1b7988' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-3e893d5b-6e44-4e5f-b46a-df576e1b7988' class='xr-section-summary'  title='Expand/collapse section'>Dimensions:</label><div class='xr-section-inline-details'><ul class='xr-dim-list'><li><span>realization</span>: 1</li><li><span class='xr-has-index'>time</span>: 100</li><li><span class='xr-has-index'>dof</span>: 1</li><li><span class='xr-has-index'>type</span>: 2</li></ul></div><div class='xr-section-details'></div></li><li class='xr-section-item'><input id='section-02046d15-d90f-4122-85d3-73dcabddd7f5' class='xr-section-summary-in' type='checkbox'  checked><label for='section-02046d15-d90f-4122-85d3-73dcabddd7f5' class='xr-section-summary' >Coordinates: <span>(3)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>time</span></div><div class='xr-var-dims'>(time)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>0.0 0.03333 0.06667 ... 3.267 3.3</div><input id='attrs-57761e42-56e5-4a75-8f96-22285d35fa0c' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-57761e42-56e5-4a75-8f96-22285d35fa0c' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-3e637617-7559-441d-8c25-9c6bc89bb73e' class='xr-var-data-in' type='checkbox'><label for='data-3e637617-7559-441d-8c25-9c6bc89bb73e' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Time</dd><dt><span>units :</span></dt><dd>s</dd></dl></div><div class='xr-var-data'><pre>array([0.      , 0.033333, 0.066667, 0.1     , 0.133333, 0.166667, 0.2     ,
+    time_created_utc:  2026-05-04 19:09:43.207509</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.Dataset</div></div><ul class='xr-sections'><li class='xr-section-item'><input id='section-5fcc6bad-78ef-45d6-8240-a5dd68f6a231' class='xr-section-summary-in' type='checkbox' disabled /><label for='section-5fcc6bad-78ef-45d6-8240-a5dd68f6a231' class='xr-section-summary'>Dimensions:</label><div class='xr-section-inline-details'><ul class='xr-dim-list'><li><span>realization</span>: 1</li><li><span class='xr-has-index'>time</span>: 100</li><li><span class='xr-has-index'>dof</span>: 1</li><li><span class='xr-has-index'>type</span>: 2</li></ul></div></li><li class='xr-section-item'><input id='section-8b8ae724-3cc5-4d2c-af11-777810600b10' class='xr-section-summary-in' type='checkbox' checked /><label for='section-8b8ae724-3cc5-4d2c-af11-777810600b10' class='xr-section-summary' title='Expand/collapse section'>Coordinates: <span>(3)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>time</span></div><div class='xr-var-dims'>(time)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>0.0 0.03333 0.06667 ... 3.267 3.3</div><input id='attrs-b72fa8bb-9168-4073-bcdd-ba01088bf666' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-b72fa8bb-9168-4073-bcdd-ba01088bf666' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-f742a69a-d63f-4c12-a175-22955b095000' class='xr-var-data-in' type='checkbox'><label for='data-f742a69a-d63f-4c12-a175-22955b095000' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Time</dd><dt><span>units :</span></dt><dd>s</dd></dl></div><div class='xr-var-data'><pre>array([0.      , 0.033333, 0.066667, 0.1     , 0.133333, 0.166667, 0.2     ,
        0.233333, 0.266667, 0.3     , 0.333333, 0.366667, 0.4     , 0.433333,
        0.466667, 0.5     , 0.533333, 0.566667, 0.6     , 0.633333, 0.666667,
        0.7     , 0.733333, 0.766667, 0.8     , 0.833333, 0.866667, 0.9     ,
@@ -1225,241 +1287,207 @@ Attributes:
        2.566667, 2.6     , 2.633333, 2.666667, 2.7     , 2.733333, 2.766667,
        2.8     , 2.833333, 2.866667, 2.9     , 2.933333, 2.966667, 3.      ,
        3.033333, 3.066667, 3.1     , 3.133333, 3.166667, 3.2     , 3.233333,
-       3.266667, 3.3     ])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>dof</span></div><div class='xr-var-dims'>(dof)</div><div class='xr-var-dtype'>&lt;U9</div><div class='xr-var-preview xr-preview'>&#x27;PTO_Heave&#x27;</div><input id='attrs-9750bce2-f037-4fdd-a067-ea5c7f88083b' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-9750bce2-f037-4fdd-a067-ea5c7f88083b' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-0ec17b62-cdb1-472b-97d2-327649ef6177' class='xr-var-data-in' type='checkbox'><label for='data-0ec17b62-cdb1-472b-97d2-327649ef6177' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>PTO degree of freedom</dd></dl></div><div class='xr-var-data'><pre>array([&#x27;PTO_Heave&#x27;], dtype=&#x27;&lt;U9&#x27;)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>type</span></div><div class='xr-var-dims'>(type)</div><div class='xr-var-dtype'>&lt;U4</div><div class='xr-var-preview xr-preview'>&#x27;mech&#x27; &#x27;elec&#x27;</div><input id='attrs-b1a27160-44b1-4580-b71e-6ec873aeae4e' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-b1a27160-44b1-4580-b71e-6ec873aeae4e' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-25527e4d-2471-4ee0-98f7-0a2aa3c24ffc' class='xr-var-data-in' type='checkbox'><label for='data-25527e4d-2471-4ee0-98f7-0a2aa3c24ffc' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Power</dd><dt><span>units :</span></dt><dd>W</dd></dl></div><div class='xr-var-data'><pre>array([&#x27;mech&#x27;, &#x27;elec&#x27;], dtype=&#x27;&lt;U4&#x27;)</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-3fab4fd0-6818-48fe-b2ed-ef6b56ea802d' class='xr-section-summary-in' type='checkbox'  checked><label for='section-3fab4fd0-6818-48fe-b2ed-ef6b56ea802d' class='xr-section-summary' >Data variables: <span>(5)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span>pos</span></div><div class='xr-var-dims'>(realization, time, dof)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>0.06596 0.06788 ... 0.0624 0.06412</div><input id='attrs-7c53814a-3ac3-404c-83e1-f2d0e4db50e3' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-7c53814a-3ac3-404c-83e1-f2d0e4db50e3' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-f3144b4e-cd1c-4c7b-a7b5-25ea5b0377a0' class='xr-var-data-in' type='checkbox'><label for='data-f3144b4e-cd1c-4c7b-a7b5-25ea5b0377a0' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Position</dd><dt><span>units :</span></dt><dd>m or rad</dd></dl></div><div class='xr-var-data'><pre>array([[[ 0.06595715],
-        [ 0.06787786],
-        [ 0.06982012],
-        [ 0.07171925],
-        [ 0.07350852],
-        [ 0.07512187],
-        [ 0.07649579],
-        [ 0.07757032],
-        [ 0.07828985],
-        [ 0.07860373],
-        [ 0.07846717],
-        [ 0.07784217],
-        [ 0.07669866],
-        [ 0.07501539],
-        [ 0.07278066],
-        [ 0.06999255],
-        [ 0.06665891],
-        [ 0.06279696],
-        [ 0.05843286],
-        [ 0.0536011 ],
+       3.266667, 3.3     ])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>dof</span></div><div class='xr-var-dims'>(dof)</div><div class='xr-var-dtype'>&lt;U9</div><div class='xr-var-preview xr-preview'>&#x27;PTO_Heave&#x27;</div><input id='attrs-ce9e19cf-1371-4308-81a2-0b69cb9613c9' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-ce9e19cf-1371-4308-81a2-0b69cb9613c9' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-51eea444-7178-42c1-9024-a9b965517d06' class='xr-var-data-in' type='checkbox'><label for='data-51eea444-7178-42c1-9024-a9b965517d06' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>PTO degree of freedom</dd></dl></div><div class='xr-var-data'><pre>array([&#x27;PTO_Heave&#x27;], dtype=&#x27;&lt;U9&#x27;)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>type</span></div><div class='xr-var-dims'>(type)</div><div class='xr-var-dtype'>&lt;U4</div><div class='xr-var-preview xr-preview'>&#x27;mech&#x27; &#x27;elec&#x27;</div><input id='attrs-f17681fa-b0f4-4b32-b9ad-c94496cc62db' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-f17681fa-b0f4-4b32-b9ad-c94496cc62db' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-98f49b26-a9e7-40be-8b91-cef35c7e01d6' class='xr-var-data-in' type='checkbox'><label for='data-98f49b26-a9e7-40be-8b91-cef35c7e01d6' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Power</dd><dt><span>units :</span></dt><dd>W</dd></dl></div><div class='xr-var-data'><pre>array([&#x27;mech&#x27;, &#x27;elec&#x27;], dtype=&#x27;&lt;U4&#x27;)</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-3c2b22e4-0601-480b-92b3-74de8313a4ef' class='xr-section-summary-in' type='checkbox' checked /><label for='section-3c2b22e4-0601-480b-92b3-74de8313a4ef' class='xr-section-summary' title='Expand/collapse section'>Data variables: <span>(5)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span>pos</span></div><div class='xr-var-dims'>(realization, time, dof)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-27b0bf3e-b548-46ec-b6ce-82e17082edd1' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-27b0bf3e-b548-46ec-b6ce-82e17082edd1' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-cd01b74e-235e-4b48-b4f8-104b89963c8d' class='xr-var-data-in' type='checkbox'><label for='data-cd01b74e-235e-4b48-b4f8-104b89963c8d' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Position</dd><dt><span>units :</span></dt><dd>m or rad</dd></dl></div><div class='xr-var-data'><pre>Array([[[ 0.0658681 ],
+        [ 0.06778756],
+        [ 0.06973011],
+        [ 0.07163103],
+        [ 0.0734235 ],
+        [ 0.07504137],
+        [ 0.07642102],
+        [ 0.07750238],
+        [ 0.07822967],
+        [ 0.0785521 ],
+        [ 0.0784247 ],
+        [ 0.0778093 ],
+        [ 0.07667565],
+        [ 0.07500233],
+        [ 0.07277745],
+        [ 0.06999894],
+        [ 0.06667447],
+        [ 0.06282114],
+        [ 0.05846497],
+        [ 0.05364032],
 ...
-        [ 0.01433642],
-        [ 0.02014411],
-        [ 0.02560249],
-        [ 0.03065519],
-        [ 0.03525338],
-        [ 0.0393593 ],
-        [ 0.04295025],
-        [ 0.04602257],
-        [ 0.04859467],
-        [ 0.05070826],
-        [ 0.05242731],
-        [ 0.05383422],
-        [ 0.05502367],
-        [ 0.05609457],
-        [ 0.05714135],
-        [ 0.05824563],
-        [ 0.05946953],
-        [ 0.06085135],
-        [ 0.06240408],
-        [ 0.06411662]]])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>vel</span></div><div class='xr-var-dims'>(realization, time, dof)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>0.05669 0.05826 ... 0.04909 0.0535</div><input id='attrs-3ed29827-4771-4fd2-9aeb-b3f5b8e48958' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-3ed29827-4771-4fd2-9aeb-b3f5b8e48958' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-f5b0b305-97c4-48b9-8114-b3525c75eefb' class='xr-var-data-in' type='checkbox'><label for='data-f5b0b305-97c4-48b9-8114-b3525c75eefb' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Velocity</dd><dt><span>units :</span></dt><dd>m/s or rad/s</dd></dl></div><div class='xr-var-data'><pre>array([[[ 0.05668991],
-        [ 0.05825685],
-        [ 0.05795227],
-        [ 0.0556598 ],
-        [ 0.05136423],
-        [ 0.04511844],
-        [ 0.03701658],
-        [ 0.02717788],
-        [ 0.01574131],
-        [ 0.00286818],
-        [-0.01125227],
-        [-0.02639889],
-        [-0.04231932],
-        [-0.05873632],
-        [-0.075358  ],
-        [-0.09188942],
-        [-0.10804248],
-        [-0.12354231],
-        [-0.13812999],
-        [-0.15156303],
+        [ 0.01437736],
+        [ 0.02018128],
+        [ 0.02563548],
+        [ 0.03068363],
+        [ 0.03527693],
+        [ 0.03937757],
+        [ 0.0429628 ],
+        [ 0.04602889],
+        [ 0.04859414],
+        [ 0.05070023],
+        [ 0.05241111],
+        [ 0.0538093 ],
+        [ 0.05498961],
+        [ 0.05605121],
+        [ 0.05708881],
+        [ 0.05818435],
+        [ 0.05940025],
+        [ 0.0607751 ],
+        [ 0.06232212],
+        [ 0.06403036]]], dtype=float64)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>vel</span></div><div class='xr-var-dims'>(realization, time, dof)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-e38f61b0-e5e5-483e-a469-8952cbb7e925' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-e38f61b0-e5e5-483e-a469-8952cbb7e925' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-33e96fbd-3c47-4ce2-842d-6f27f0c50d49' class='xr-var-data-in' type='checkbox'><label for='data-33e96fbd-3c47-4ce2-842d-6f27f0c50d49' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Velocity</dd><dt><span>units :</span></dt><dd>m/s or rad/s</dd></dl></div><div class='xr-var-data'><pre>Array([[[ 0.05662931],
+        [ 0.0582432 ],
+        [ 0.05798448],
+        [ 0.05573573],
+        [ 0.05148106],
+        [ 0.0452729 ],
+        [ 0.0372051 ],
+        [ 0.02739657],
+        [ 0.01598597],
+        [ 0.00313422],
+        [-0.01096987],
+        [-0.02610549],
+        [-0.04202051],
+        [-0.0584377 ],
+        [-0.07506501],
+        [-0.09160711],
+        [-0.10777539],
+        [-0.12329437],
+        [-0.13790459],
+        [-0.15136301],
 ...
-        [ 0.17886657],
-        [ 0.16928723],
-        [ 0.15793176],
-        [ 0.14498315],
-        [ 0.13071656],
-        [ 0.1155225 ],
-        [ 0.09991496],
-        [ 0.08451677],
-        [ 0.07001927],
-        [ 0.05711888],
-        [ 0.04643932],
-        [ 0.03845247],
-        [ 0.03341258],
-        [ 0.03131682],
-        [ 0.03190056],
-        [ 0.03466875],
-        [ 0.0389578 ],
-        [ 0.04401649],
-        [ 0.04909114],
-        [ 0.05350061]]])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>acc</span></div><div class='xr-var-dims'>(realization, time, dof)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>0.07297 0.01983 ... 0.1454 0.1164</div><input id='attrs-5827a9b7-f9cc-45e7-ba92-2ce5264d3fee' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-5827a9b7-f9cc-45e7-ba92-2ce5264d3fee' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-93be34f8-87b9-45fc-b5c7-717776f30f01' class='xr-var-data-in' type='checkbox'><label for='data-93be34f8-87b9-45fc-b5c7-717776f30f01' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Acceleration</dd><dt><span>units :</span></dt><dd>m/s^2 or rad/s^2</dd></dl></div><div class='xr-var-data'><pre>array([[[ 0.07297109],
-        [ 0.01983014],
-        [-0.03865772],
-        [-0.09894963],
-        [-0.15851881],
-        [-0.21576943],
-        [-0.26976322],
-        [-0.31987793],
-        [-0.36551265],
-        [-0.40591885],
-        [-0.44018251],
-        [-0.46732972],
-        [-0.48649248],
-        [-0.4970618 ],
-        [-0.49877142],
-        [-0.49169007],
-        [-0.47613771],
-        [-0.45256942],
-        [-0.4214791 ],
-        [-0.38336167],
+        [ 0.17876046],
+        [ 0.16916805],
+        [ 0.15780138],
+        [ 0.14484233],
+        [ 0.13056477],
+        [ 0.11535811],
+        [ 0.09973562],
+        [ 0.08432003],
+        [ 0.0698033 ],
+        [ 0.05688322],
+        [ 0.04618542],
+        [ 0.03818403],
+        [ 0.03313547],
+        [ 0.03103879],
+        [ 0.03163057],
+        [ 0.03441619],
+        [ 0.03873163],
+        [ 0.04382453],
+        [ 0.04893951],
+        [ 0.05339343]]], dtype=float64)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>acc</span></div><div class='xr-var-dims'>(realization, time, dof)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-15ea02f1-6214-4a67-8afb-63d1641280f9' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-15ea02f1-6214-4a67-8afb-63d1641280f9' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-2da54886-f860-4475-80ee-ba7aa63003e1' class='xr-var-data-in' type='checkbox'><label for='data-2da54886-f860-4475-80ee-ba7aa63003e1' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Acceleration</dd><dt><span>units :</span></dt><dd>m/s^2 or rad/s^2</dd></dl></div><div class='xr-var-data'><pre>Array([[[ 0.07436666],
+        [ 0.02121577],
+        [-0.0373145 ],
+        [-0.09767269],
+        [-0.15732647],
+        [-0.21467721],
+        [-0.26878567],
+        [-0.31902907],
+        [-0.36480528],
+        [-0.40536344],
+        [-0.4397861 ],
+        [-0.46709538],
+        [-0.48641942],
+        [-0.49714587],
+        [-0.4990058 ],
+        [-0.49206574],
+        [-0.47664366],
+        [-0.45319275],
+        [-0.42220501],
+        [-0.3841738 ],
 ...
-        [-0.25941298],
-        [-0.31474151],
-        [-0.36567496],
-        [-0.40987792],
-        [-0.44418193],
-        [-0.46490434],
-        [-0.4684333 ],
-        [-0.45198113],
-        [-0.41434703],
-        [-0.35650505],
-        [-0.28185542],
-        [-0.19604398],
-        [-0.106349  ],
-        [-0.02073585],
-        [ 0.05324098],
-        [ 0.10947091],
-        [ 0.14405247],
-        [ 0.15565004],
-        [ 0.14539623],
-        [ 0.11639592]]])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>force</span></div><div class='xr-var-dims'>(realization, time, dof)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>750.0 750.6 747.4 ... 715.2 740.3</div><input id='attrs-06c79ecf-7942-4c39-923e-80a9640b270e' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-06c79ecf-7942-4c39-923e-80a9640b270e' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-501b583b-f86f-4528-b9a2-f8c677894eaf' class='xr-var-data-in' type='checkbox'><label for='data-501b583b-f86f-4528-b9a2-f8c677894eaf' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>PTO force or torque</dd><dt><span>units :</span></dt><dd>N or Nm</dd></dl></div><div class='xr-var-data'><pre>array([[[ 750.        ],
-        [ 750.61524942],
-        [ 747.42670796],
-        [ 744.12100924],
-        [ 742.58398831],
-        [ 743.14926105],
-        [ 745.13765247],
-        [ 747.48824968],
-        [ 749.29272658],
-        [ 750.10656564],
+        [-0.25985812],
+        [-0.3151131 ],
+        [-0.36599821],
+        [-0.4101881 ],
+        [-0.44451791],
+        [-0.46529978],
+        [-0.46890728],
+        [-0.45253077],
+        [-0.41494397],
+        [-0.35709726],
+        [-0.28237431],
+        [-0.19641533],
+        [-0.10650551],
+        [-0.02062841],
+        [ 0.05363571],
+        [ 0.11014801],
+        [ 0.14498157],
+        [ 0.15678225],
+        [ 0.14667315],
+        [ 0.11775856]]], dtype=float64)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>force</span></div><div class='xr-var-dims'>(realization, time, dof)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-d2a10703-760e-4c34-babf-6b8e195d038d' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-d2a10703-760e-4c34-babf-6b8e195d038d' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-2b37a50c-0586-450e-b408-30549c432cc6' class='xr-var-data-in' type='checkbox'><label for='data-2b37a50c-0586-450e-b408-30549c432cc6' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>PTO force or torque</dd><dt><span>units :</span></dt><dd>N or Nm</dd></dl></div><div class='xr-var-data'><pre>Array([[[ 750.        ],
+        [ 750.6172787 ],
+        [ 747.41821253],
+        [ 744.10173163],
+        [ 742.56002195],
+        [ 743.12761504],
+        [ 745.12275756],
+        [ 747.48085744],
+        [ 749.29074673],
+        [ 750.10684615],
         [ 750.        ],
-        [ 749.39816517],
-        [ 748.81791482],
-        [ 748.62323489],
-        [ 748.89258811],
-        [ 749.43422626],
-        [ 749.9222707 ],
-        [ 750.08023515],
-        [ 749.82519257],
-        [ 749.30800968],
+        [ 749.3968231 ],
+        [ 748.81555657],
+        [ 748.6208427 ],
+        [ 748.89097411],
+        [ 749.43357318],
+        [ 749.92220639],
+        [ 750.08027329],
+        [ 749.82517572],
+        [ 749.30822568],
 ...
-        [-745.19488328],
-        [-747.22144573],
-        [-749.55329601],
-        [-749.30452582],
-        [-741.91996025],
-        [-721.62751133],
-        [-682.33553283],
-        [-618.82595146],
-        [-527.99259258],
-        [-409.83119615],
-        [-267.91974983],
-        [-109.23112678],
-        [  56.72943815],
-        [ 219.30988086],
-        [ 368.34079745],
-        [ 495.6694751 ],
-        [ 596.28151124],
-        [ 668.79249222],
-        [ 715.24220046],
-        [ 740.28491039]]])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>power</span></div><div class='xr-var-dims'>(realization, type, time, dof)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>42.52 43.73 43.32 ... 35.11 39.61</div><input id='attrs-b7ae7f90-f76d-4881-a294-0e292a2a0df5' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-b7ae7f90-f76d-4881-a294-0e292a2a0df5' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-d8dca2ff-7781-4fff-8ef8-3c7dde85a946' class='xr-var-data-in' type='checkbox'><label for='data-d8dca2ff-7781-4fff-8ef8-3c7dde85a946' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Power</dd><dt><span>units :</span></dt><dd>W</dd></dl></div><div class='xr-var-data'><pre>array([[[[  42.51742978],
-         [  43.72847739],
-         [  43.31507708],
-         [  41.41762526],
-         [  38.14225181],
-         [  33.52973343],
-         [  27.58244816],
-         [  20.31514387],
-         [  11.79485057],
-         [   2.15144361],
-         [  -8.43920332],
-         [ -19.78327769],
-         [ -31.68946656],
-         [ -43.97137101],
-         [ -56.43504456],
-         [ -68.86507663],
-         [ -81.02346229],
-         [ -92.66664122],
-         [-103.57334582],
-         [-113.56739516],
+        [-745.08124113],
+        [-747.11426751],
+        [-749.5017692 ],
+        [-749.37361507],
+        [-742.18055888],
+        [-722.14253436],
+        [-683.14497257],
+        [-619.93464937],
+        [-529.36417124],
+        [-411.39025103],
+        [-269.56236119],
+        [-110.84159258],
+        [  55.25939361],
+        [ 218.06381062],
+        [ 367.36598565],
+        [ 494.97340694],
+        [ 595.83650943],
+        [ 668.54663537],
+        [ 715.13326115],
+        [ 740.25367713]]], dtype=float64)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>power</span></div><div class='xr-var-dims'>(realization, type, time, dof)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>42.47 43.72 43.34 ... 35.0 39.52</div><input id='attrs-225286a3-8551-4933-8c90-ebb42f706f82' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-225286a3-8551-4933-8c90-ebb42f706f82' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-4b09d8ed-7761-4a86-bbf5-af76f9595319' class='xr-var-data-in' type='checkbox'><label for='data-4b09d8ed-7761-4a86-bbf5-af76f9595319' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Power</dd><dt><span>units :</span></dt><dd>W</dd></dl></div><div class='xr-var-data'><pre>array([[[[  42.47198447],
+         [  43.71834958],
+         [  43.33865762],
+         [  41.47305514],
+         [  38.22777723],
+         [  33.64354427],
+         [  27.72236372],
+         [  20.47841161],
+         [  11.97814312],
+         [   2.35099869],
+         [  -8.22740446],
+         [ -19.56336907],
+         [ -31.46560795],
+         [ -43.74767878],
+         [ -56.21550692],
+         [ -68.65344667],
+         [ -80.82315609],
+         [ -92.48067629],
+         [-103.40433123],
+         [-113.41755019],
 ...
-         [-133.29045392],
-         [-126.49504957],
-         [-118.37826776],
-         [-108.63653163],
-         [ -96.98122285],
-         [ -83.36421386],
-         [ -68.17552695],
-         [ -52.30117242],
-         [ -36.96965611],
-         [ -23.40909772],
-         [ -12.44201064],
-         [  -4.20020704],
-         [   1.8954769 ],
-         [   6.86808827],
-         [  11.7502783 ],
-         [  17.1842394 ],
-         [  23.22981316],
-         [  29.43789559],
-         [  35.11205534],
-         [  39.60569383]]]])</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-ce7d75fe-abed-4cb6-a5bc-ba686ddd48de' class='xr-section-summary-in' type='checkbox'  ><label for='section-ce7d75fe-abed-4cb6-a5bc-ba686ddd48de' class='xr-section-summary' >Indexes: <span>(3)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-index-name'><div>time</div></div><div class='xr-index-preview'>PandasIndex</div><input type='checkbox' disabled/><label></label><input id='index-54be4a6a-15a1-426d-bec8-2023b3d03b76' class='xr-index-data-in' type='checkbox'/><label for='index-54be4a6a-15a1-426d-bec8-2023b3d03b76' title='Show/Hide index repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-index-data'><pre>PandasIndex(Index([                0.0, 0.03333333333333333, 0.06666666666666667,
-                       0.1, 0.13333333333333333, 0.16666666666666666,
-                       0.2, 0.23333333333333334, 0.26666666666666666,
-                       0.3,  0.3333333333333333, 0.36666666666666664,
-                       0.4, 0.43333333333333335,  0.4666666666666667,
-                       0.5,  0.5333333333333333,  0.5666666666666667,
-                       0.6,  0.6333333333333333,  0.6666666666666666,
-                       0.7,  0.7333333333333333,  0.7666666666666666,
-                       0.8,  0.8333333333333334,  0.8666666666666667,
-                       0.9,  0.9333333333333333,  0.9666666666666667,
-                       1.0,  1.0333333333333332,  1.0666666666666667,
-                       1.1,  1.1333333333333333,  1.1666666666666667,
-                       1.2,  1.2333333333333334,  1.2666666666666666,
-                       1.3,  1.3333333333333333,  1.3666666666666667,
-                       1.4,  1.4333333333333333,  1.4666666666666666,
-                       1.5,  1.5333333333333332,  1.5666666666666667,
-                       1.6,  1.6333333333333333,  1.6666666666666667,
-                       1.7,  1.7333333333333334,  1.7666666666666666,
-                       1.8,  1.8333333333333333,  1.8666666666666667,
-                       1.9,  1.9333333333333333,  1.9666666666666666,
-                       2.0,   2.033333333333333,  2.0666666666666664,
-                       2.1,  2.1333333333333333,  2.1666666666666665,
-                       2.2,  2.2333333333333334,  2.2666666666666666,
-                       2.3,  2.3333333333333335,  2.3666666666666667,
-                       2.4,   2.433333333333333,   2.466666666666667,
-                       2.5,   2.533333333333333,  2.5666666666666664,
-                       2.6,  2.6333333333333333,  2.6666666666666665,
-                       2.7,  2.7333333333333334,  2.7666666666666666,
-                       2.8,  2.8333333333333335,  2.8666666666666667,
-                       2.9,   2.933333333333333,   2.966666666666667,
-                       3.0,   3.033333333333333,  3.0666666666666664,
-                       3.1,  3.1333333333333333,  3.1666666666666665,
-                       3.2,  3.2333333333333334,  3.2666666666666666,
-                       3.3],
-      dtype=&#x27;float64&#x27;, name=&#x27;time&#x27;))</pre></div></li><li class='xr-var-item'><div class='xr-index-name'><div>dof</div></div><div class='xr-index-preview'>PandasIndex</div><input type='checkbox' disabled/><label></label><input id='index-c2b9d7ad-2890-4498-a2cf-7f911b46968a' class='xr-index-data-in' type='checkbox'/><label for='index-c2b9d7ad-2890-4498-a2cf-7f911b46968a' title='Show/Hide index repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-index-data'><pre>PandasIndex(Index([&#x27;PTO_Heave&#x27;], dtype=&#x27;object&#x27;, name=&#x27;dof&#x27;))</pre></div></li><li class='xr-var-item'><div class='xr-index-name'><div>type</div></div><div class='xr-index-preview'>PandasIndex</div><input type='checkbox' disabled/><label></label><input id='index-25cc7f58-b5fd-435d-8f85-0af18a5ddef6' class='xr-index-data-in' type='checkbox'/><label for='index-25cc7f58-b5fd-435d-8f85-0af18a5ddef6' title='Show/Hide index repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-index-data'><pre>PandasIndex(Index([&#x27;mech&#x27;, &#x27;elec&#x27;], dtype=&#x27;object&#x27;, name=&#x27;type&#x27;))</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-0295aeb1-e118-435a-a51c-4160deceb661' class='xr-section-summary-in' type='checkbox'  checked><label for='section-0295aeb1-e118-435a-a51c-4160deceb661' class='xr-section-summary' >Attributes: <span>(1)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'><dt><span>time_created_utc :</span></dt><dd>2025-09-24 19:00:09.591474</dd></dl></div></li></ul></div></div></div>
+         [-133.19106788],
+         [-126.38786327],
+         [-118.27241331],
+         [-108.54101735],
+         [ -96.90263196],
+         [ -83.30499878],
+         [ -68.13388731],
+         [ -52.27290804],
+         [ -36.95136794],
+         [ -23.40120183],
+         [ -12.44985194],
+         [  -4.23237815],
+         [   1.83104584],
+         [   6.76843619],
+         [  11.61999601],
+         [  17.03509666],
+         [  23.07772093],
+         [  29.29874351],
+         [  34.99826815],
+         [  39.52467951]]]])</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-67f5fefa-16fb-4863-8890-64a591b161ea' class='xr-section-summary-in' type='checkbox' checked /><label for='section-67f5fefa-16fb-4863-8890-64a591b161ea' class='xr-section-summary' title='Expand/collapse section'>Attributes: <span>(1)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'><dt><span>time_created_utc :</span></dt><dd>2026-05-04 19:09:43.207509</dd></dl></div></li></ul></div></div></div>
 </div>
 <p>Lastly, we will visualize the average power at different stages and how the power flows through the system.</p>
 <div class="nbinput docutils container">
@@ -1476,19 +1504,6 @@ Attributes:
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/home/runner/work/WecOptTool/WecOptTool/wecopttool/core.py:964: FutureWarning: In a future version of xarray the default value for join will change from join=&#39;outer&#39; to join=&#39;exact&#39;. This change will result in the following ValueError: cannot be aligned with join=&#39;exact&#39; because index/labels/sizes are not equal along these coordinates (dimensions): &#39;omega&#39; (&#39;omega&#39;,) The recommendation is to set join explicitly for this case.
-  results_fd = xr.merge([fd_state, fd_forces, wave])
-/home/runner/work/WecOptTool/WecOptTool/wecopttool/core.py:964: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  results_fd = xr.merge([fd_state, fd_forces, wave])
-/home/runner/work/WecOptTool/WecOptTool/wecopttool/core.py:964: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  results_fd = xr.merge([fd_state, fd_forces, wave])
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
@@ -1501,14 +1516,14 @@ Attributes:
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area rendered_html docutils container">
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[19:00:10] </span><span style="color: #808000; text-decoration-color: #808000">WARNING </span> Ignoring fixed y limits to fulfill fixed data aspect with adjustable data limits.
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[19:09:46] </span><span style="color: #808000; text-decoration-color: #808000">WARNING </span> Ignoring fixed y limits to fulfill fixed data aspect with adjustable data limits.
 </pre></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/_examples_tutorial_1_WaveBot_44_3.png" src="../_images/_examples_tutorial_1_WaveBot_44_3.png" />
+<img alt="../_images/_examples_tutorial_1_WaveBot_44_2.png" src="../_images/_examples_tutorial_1_WaveBot_44_2.png" />
 </div>
 </div>
 <p>On the very left of the power flow Sankey diagram we start with the <em>Optimal Excitation</em>, which is only determined by the incident wave and the hydrodynamic damping and friction. In order for the actual <em>Excited</em> power to equal the <em>Optimal Excitation</em> the absorbed <em>Mechanical</em> power would need to equal the <em>Radiated</em> power (power that is radiated away from the WEC). In this case the <em>Unused Potential</em> would be zero. In other words, you can never convert more than 50% of the incident wave energy
@@ -1522,7 +1537,7 @@ into kinetic energy. For more information on this we refer to Johannes Falnes Bo
 <h2>2. Optimal control for maximum electrical power<a class="headerlink" href="#2.-Optimal-control-for-maximum-electrical-power" title="Link to this heading"></a></h2>
 <p>The rest of this tutorial will focus on a different objective function: we will now optimize for electrical power rather than mechanical, as this is a form of power that is usable and transportable.</p>
 <p>Since we are still dealing with the same WaveBot as in Part 1, we can reuse the BEM, WEC-PTO kinematics, and wave data from before.</p>
-<div><p><img alt="5c074b21e8a64f06ab7bbdffb0a1fd3f" class="no-scaled-link" src="https://live.staticflickr.com/65535/52435033525_b8efc28d16_k.jpg" style="width: 1000px;" /></p>
+<div><p><img alt="b8c99bfba38e4964be28f64c389c069a" class="no-scaled-link" src="https://live.staticflickr.com/65535/52435033525_b8efc28d16_k.jpg" width="1000" /></p>
 </div><p>The biggest difference when considering electrical power is the addition of the PTO dynamics. In other words, we no longer assume a lossless PTO. We will express the PTO dynamics in the form of a <a class="reference external" href="https://en.wikipedia.org/wiki/Impedance_parameters">2-port impedance model</a> to incorporate the dynamics of the drivetrain and generator. The additional mechanical energy storage through the drivetrain is modeled using Newton’s second law, and we assume a linear generator using a power-invariant park
 transform.</p>
 <p>The PTO impedance matrix components are then obtained under open-circuit conditions: no load current (<span class="math notranslate nohighlight">\(i_{pto}\)</span> in figure above) or no WEC velocity (<span class="math notranslate nohighlight">\(vel_{pto}\)</span> above), respectively. See Section II of Michelén et al. <a class="reference external" href="https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=10114969">here</a> for more details about how the code below is derived.</p>
@@ -1569,7 +1584,7 @@ transform.</p>
 <span class="c1">## Update PTO constraints and forcing</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">const_f_pto_2</span><span class="p">(</span><span class="n">wec</span><span class="p">,</span> <span class="n">x_wec</span><span class="p">,</span> <span class="n">x_opt</span><span class="p">,</span> <span class="n">wave</span><span class="p">):</span>
     <span class="n">f</span> <span class="o">=</span> <span class="n">pto_2</span><span class="o">.</span><span class="n">force_on_wec</span><span class="p">(</span><span class="n">wec</span><span class="p">,</span> <span class="n">x_wec</span><span class="p">,</span> <span class="n">x_opt</span><span class="p">,</span> <span class="n">wave</span><span class="p">,</span> <span class="n">nsubsteps</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">f_max</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">f_max</span> <span class="o">-</span> <span class="n">jnp</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
 <span class="n">ineq_cons_2</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ineq&#39;</span><span class="p">,</span> <span class="s1">&#39;fun&#39;</span><span class="p">:</span> <span class="n">const_f_pto_2</span><span class="p">}</span>
 <span class="n">constraints_2</span> <span class="o">=</span> <span class="p">[</span><span class="n">ineq_cons_2</span><span class="p">]</span>
 <span class="n">f_add_2</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;PTO&#39;</span><span class="p">:</span> <span class="n">pto_2</span><span class="o">.</span><span class="n">force_on_wec</span><span class="p">}</span>
@@ -1625,34 +1640,21 @@ WARNING:wecopttool.core:Linear damping for DOF &#34;Heave&#34; has negative or c
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area rendered_html docutils container">
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">           </span><span style="color: #808000; text-decoration-color: #808000">WARNING </span> Linear damping for DOF <span style="color: #008000; text-decoration-color: #008000">"Heave"</span> has negative or close to zero terms. Shifting up damping terms
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[19:09:47] </span><span style="color: #808000; text-decoration-color: #808000">WARNING </span> Linear damping for DOF <span style="color: #008000; text-decoration-color: #008000">"Heave"</span> has negative or close to zero terms. Shifting up damping terms
 <span style="color: #7fbfbf; text-decoration-color: #7fbfbf">           </span>         <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">9</span><span style="font-weight: bold">]</span> to a minimum of <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1e-06</span> N/<span style="font-weight: bold">(</span>m/s<span style="font-weight: bold">)</span>
 </pre></div>
 </div>
-<div class="nboutput docutils container">
+<div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Optimization terminated successfully    (Exit mode 0)
-            Current function value: -0.28000395029412295
+            Current function value: -0.2800038865391305
             Iterations: 10
-            Function evaluations: 11
+            Function evaluations: 10
             Gradient evaluations: 10
-Optimal average electrical power: -28.000395029412296 W
-</pre></div></div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/home/runner/work/WecOptTool/WecOptTool/wecopttool/core.py:964: FutureWarning: In a future version of xarray the default value for join will change from join=&#39;outer&#39; to join=&#39;exact&#39;. This change will result in the following ValueError: cannot be aligned with join=&#39;exact&#39; because index/labels/sizes are not equal along these coordinates (dimensions): &#39;omega&#39; (&#39;omega&#39;,) The recommendation is to set join explicitly for this case.
-  results_fd = xr.merge([fd_state, fd_forces, wave])
-/home/runner/work/WecOptTool/WecOptTool/wecopttool/core.py:964: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  results_fd = xr.merge([fd_state, fd_forces, wave])
-/home/runner/work/WecOptTool/WecOptTool/wecopttool/core.py:964: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  results_fd = xr.merge([fd_state, fd_forces, wave])
+Optimal average electrical power: -28.00038865391305 W
 </pre></div></div>
 </div>
 <p>We will compare our optimal results to the unconstrained case to gain some insight into the effect of the constraint on the optimal PTO force. Let’s do the same process as before, but unset the <code class="docutils literal notranslate"><span class="pre">constraints</span></code> parameter in a new <code class="docutils literal notranslate"><span class="pre">WEC</span></code> object.</p>
@@ -1695,34 +1697,21 @@ WARNING:wecopttool.core:Linear damping for DOF &#34;Heave&#34; has negative or c
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area rendered_html docutils container">
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[19:00:11] </span><span style="color: #808000; text-decoration-color: #808000">WARNING </span> Linear damping for DOF <span style="color: #008000; text-decoration-color: #008000">"Heave"</span> has negative or close to zero terms. Shifting up damping terms
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[19:09:49] </span><span style="color: #808000; text-decoration-color: #808000">WARNING </span> Linear damping for DOF <span style="color: #008000; text-decoration-color: #008000">"Heave"</span> has negative or close to zero terms. Shifting up damping terms
 <span style="color: #7fbfbf; text-decoration-color: #7fbfbf">           </span>         <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">9</span><span style="font-weight: bold">]</span> to a minimum of <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1e-06</span> N/<span style="font-weight: bold">(</span>m/s<span style="font-weight: bold">)</span>
 </pre></div>
 </div>
-<div class="nboutput docutils container">
+<div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Optimization terminated successfully    (Exit mode 0)
-            Current function value: -0.2918488198518884
+            Current function value: -0.29184900214170584
             Iterations: 13
-            Function evaluations: 14
+            Function evaluations: 15
             Gradient evaluations: 13
-Optimal average electrical power: -29.184881985188838 W
-</pre></div></div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/home/runner/work/WecOptTool/WecOptTool/wecopttool/core.py:964: FutureWarning: In a future version of xarray the default value for join will change from join=&#39;outer&#39; to join=&#39;exact&#39;. This change will result in the following ValueError: cannot be aligned with join=&#39;exact&#39; because index/labels/sizes are not equal along these coordinates (dimensions): &#39;omega&#39; (&#39;omega&#39;,) The recommendation is to set join explicitly for this case.
-  results_fd = xr.merge([fd_state, fd_forces, wave])
-/home/runner/work/WecOptTool/WecOptTool/wecopttool/core.py:964: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  results_fd = xr.merge([fd_state, fd_forces, wave])
-/home/runner/work/WecOptTool/WecOptTool/wecopttool/core.py:964: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  results_fd = xr.merge([fd_state, fd_forces, wave])
+Optimal average electrical power: -29.184900214170582 W
 </pre></div></div>
 </div>
 <p>Note that the optimal constrained PTO force follows the optimal unconstrained solution (sinusoidal) whenever the unconstrained solution is within the constraint. When the constraint is active the optimal PTO force is the maximum PTO force of 750 Newtons.</p>
@@ -1756,7 +1745,7 @@ Optimal average electrical power: -29.184881985188838 W
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.legend.Legend at 0x7f63c03456d0&gt;
+&lt;matplotlib.legend.Legend at 0x7f9fbc759640&gt;
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1794,19 +1783,6 @@ over-design.</p>
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/home/runner/work/WecOptTool/WecOptTool/wecopttool/core.py:964: FutureWarning: In a future version of xarray the default value for join will change from join=&#39;outer&#39; to join=&#39;exact&#39;. This change will result in the following ValueError: cannot be aligned with join=&#39;exact&#39; because index/labels/sizes are not equal along these coordinates (dimensions): &#39;omega&#39; (&#39;omega&#39;,) The recommendation is to set join explicitly for this case.
-  results_fd = xr.merge([fd_state, fd_forces, wave])
-/home/runner/work/WecOptTool/WecOptTool/wecopttool/core.py:964: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  results_fd = xr.merge([fd_state, fd_forces, wave])
-/home/runner/work/WecOptTool/WecOptTool/wecopttool/core.py:964: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  results_fd = xr.merge([fd_state, fd_forces, wave])
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
@@ -1819,7 +1795,7 @@ over-design.</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area rendered_html docutils container">
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[19:00:13] </span><span style="color: #808000; text-decoration-color: #808000">WARNING </span> Ignoring fixed x limits to fulfill fixed data aspect with adjustable data limits.
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[19:09:51] </span><span style="color: #808000; text-decoration-color: #808000">WARNING </span> Ignoring fixed x limits to fulfill fixed data aspect with adjustable data limits.
 </pre></div>
 </div>
 <div class="nboutput docutils container">
@@ -1833,7 +1809,7 @@ over-design.</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/_examples_tutorial_1_WaveBot_57_4.png" src="../_images/_examples_tutorial_1_WaveBot_57_4.png" />
+<img alt="../_images/_examples_tutorial_1_WaveBot_57_3.png" src="../_images/_examples_tutorial_1_WaveBot_57_3.png" />
 </div>
 </div>
 </section>
@@ -1844,7 +1820,7 @@ over-design.</p>
 <p>This example demonstrates a complete case of the control co-optimization studies WecOptTool is meant for. The inner optimization loop finds the control trajectory that produces the optimal PTO force for a given hull geometry, and the outer optimization loop finds the optimal hull geometry <em>amongst designs with optimal control trajectories</em>.</p>
 <p>The inner loop is consolidated into the <code class="docutils literal notranslate"><span class="pre">WEC.solve()</span></code> method, but the outer loop needs to be configured by the user for their particular design problem. In this example, we will do a simple <em>brute force</em> optimization using <code class="docutils literal notranslate"><span class="pre">scipy.optimize.brute</span></code> (click <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.brute.html">here</a> for documentation).</p>
 <p><img alt="Device Diagram" src="https://live.staticflickr.com/65535/51751577441_515afec334_z.jpg" /></p>
-<div><p><img alt="4021443fbd8a4ffa8ea9ebc54b97aa11" class="no-scaled-link" src="https://live.staticflickr.com/65535/52434071157_187eb4334c_k.jpg" style="width: 1000px;" /></p>
+<div><p><img alt="8a2c013e2a68446e85742e4a000e78c9" class="no-scaled-link" src="https://live.staticflickr.com/65535/52434071157_187eb4334c_k.jpg" width="1000" /></p>
 </div><section id="Problem-setup">
 <h3>Problem setup<a class="headerlink" href="#Problem-setup" title="Link to this heading"></a></h3>
 <p>First, we define a function for <code class="docutils literal notranslate"><span class="pre">h2</span></code> based on <code class="docutils literal notranslate"><span class="pre">r1</span></code> that maintains a constant volume. We see that, as expected, smaller values of <code class="docutils literal notranslate"><span class="pre">r2</span></code> require larger values of <code class="docutils literal notranslate"><span class="pre">h2</span></code> in order to maintain a constant hull volume.</p>
@@ -1950,7 +1926,7 @@ over-design.</p>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">const_f_pto</span><span class="p">(</span><span class="n">wec</span><span class="p">,</span> <span class="n">x_wec</span><span class="p">,</span> <span class="n">x_opt</span><span class="p">,</span> <span class="n">wave</span><span class="p">):</span>
         <span class="n">f</span> <span class="o">=</span> <span class="n">pto</span><span class="o">.</span><span class="n">force</span><span class="p">(</span><span class="n">wec</span><span class="p">,</span> <span class="n">x_wec</span><span class="p">,</span> <span class="n">x_opt</span><span class="p">,</span> <span class="n">wave</span><span class="p">,</span> <span class="n">nsubsteps</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">f_max</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">f_max</span> <span class="o">-</span> <span class="n">jnp</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
 
     <span class="n">ineq_cons</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ineq&#39;</span><span class="p">,</span> <span class="s1">&#39;fun&#39;</span><span class="p">:</span> <span class="n">const_f_pto</span><span class="p">}</span>
     <span class="n">constraints</span> <span class="o">=</span> <span class="p">[</span><span class="n">ineq_cons</span><span class="p">]</span>
@@ -2017,18 +1993,7 @@ Info    : [ 90%] Union - Splitting solids
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "a850958ae97c40fb9223c12b3c504070"}</script></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/bodies/bodies.py:663: FutureWarning: In a future version of xarray the default value for join will change from join=&#39;outer&#39; to join=&#39;exact&#39;. This change will result in the following ValueError: cannot be aligned with join=&#39;exact&#39; because index/labels/sizes are not equal along these coordinates (dimensions): &#39;influenced_dof&#39; (&#39;influenced_dof&#39;,) The recommendation is to set join explicitly for this case.
-  total_mass_xr = xr.merge([rigid_inertia_matrix_xr, other_dofs_inertia_matrix_xr], compat=&#34;override&#34;).inertia_matrix
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/bodies/bodies.py:663: FutureWarning: In a future version of xarray the default value for join will change from join=&#39;outer&#39; to join=&#39;exact&#39;. This change will result in the following ValueError: cannot be aligned with join=&#39;exact&#39; because index/labels/sizes are not equal along these coordinates (dimensions): &#39;radiating_dof&#39; (&#39;radiating_dof&#39;,) The recommendation is to set join explicitly for this case.
-  total_mass_xr = xr.merge([rigid_inertia_matrix_xr, other_dofs_inertia_matrix_xr], compat=&#34;override&#34;).inertia_matrix
-</pre></div></div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "0a47ab6bec034cce9fc0c891dd506c64"}</script></div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
@@ -2039,31 +2004,10 @@ Info    : [ 90%] Union - Splitting solids
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:260: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, {body_property: bodies_properties}])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:522: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, hydrostatics_dataset(bodies)])
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Optimization terminated successfully    (Exit mode 0)
-            Current function value: -0.2798713565841979
+            Current function value: -0.27987163823363653
             Iterations: 10
             Function evaluations: 11
             Gradient evaluations: 10
@@ -2076,18 +2020,7 @@ Info    : [ 90%] Union - Splitting solids
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "aaa3e09a3a514ba6ba7e16c73bb2af17"}</script></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/bodies/bodies.py:663: FutureWarning: In a future version of xarray the default value for join will change from join=&#39;outer&#39; to join=&#39;exact&#39;. This change will result in the following ValueError: cannot be aligned with join=&#39;exact&#39; because index/labels/sizes are not equal along these coordinates (dimensions): &#39;influenced_dof&#39; (&#39;influenced_dof&#39;,) The recommendation is to set join explicitly for this case.
-  total_mass_xr = xr.merge([rigid_inertia_matrix_xr, other_dofs_inertia_matrix_xr], compat=&#34;override&#34;).inertia_matrix
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/bodies/bodies.py:663: FutureWarning: In a future version of xarray the default value for join will change from join=&#39;outer&#39; to join=&#39;exact&#39;. This change will result in the following ValueError: cannot be aligned with join=&#39;exact&#39; because index/labels/sizes are not equal along these coordinates (dimensions): &#39;radiating_dof&#39; (&#39;radiating_dof&#39;,) The recommendation is to set join explicitly for this case.
-  total_mass_xr = xr.merge([rigid_inertia_matrix_xr, other_dofs_inertia_matrix_xr], compat=&#34;override&#34;).inertia_matrix
-</pre></div></div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "d9d1ac9b6f9347bbbe2b87e9ac70ef70"}</script></div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
@@ -2098,31 +2031,10 @@ Info    : [ 90%] Union - Splitting solids
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:260: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, {body_property: bodies_properties}])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:522: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, hydrostatics_dataset(bodies)])
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Optimization terminated successfully    (Exit mode 0)
-            Current function value: -0.27981339909396374
+            Current function value: -0.27981329789007336
             Iterations: 10
             Function evaluations: 11
             Gradient evaluations: 10
@@ -2135,18 +2047,7 @@ Info    : [ 90%] Union - Splitting solids
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "07252294652b4c4ab8d90a9e9e7903cd"}</script></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/bodies/bodies.py:663: FutureWarning: In a future version of xarray the default value for join will change from join=&#39;outer&#39; to join=&#39;exact&#39;. This change will result in the following ValueError: cannot be aligned with join=&#39;exact&#39; because index/labels/sizes are not equal along these coordinates (dimensions): &#39;influenced_dof&#39; (&#39;influenced_dof&#39;,) The recommendation is to set join explicitly for this case.
-  total_mass_xr = xr.merge([rigid_inertia_matrix_xr, other_dofs_inertia_matrix_xr], compat=&#34;override&#34;).inertia_matrix
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/bodies/bodies.py:663: FutureWarning: In a future version of xarray the default value for join will change from join=&#39;outer&#39; to join=&#39;exact&#39;. This change will result in the following ValueError: cannot be aligned with join=&#39;exact&#39; because index/labels/sizes are not equal along these coordinates (dimensions): &#39;radiating_dof&#39; (&#39;radiating_dof&#39;,) The recommendation is to set join explicitly for this case.
-  total_mass_xr = xr.merge([rigid_inertia_matrix_xr, other_dofs_inertia_matrix_xr], compat=&#34;override&#34;).inertia_matrix
-</pre></div></div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "61d6fbd2f8f24279b887fdea45cc6b9b"}</script></div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
@@ -2157,34 +2058,13 @@ Info    : [ 90%] Union - Splitting solids
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:260: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, {body_property: bodies_properties}])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:522: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, hydrostatics_dataset(bodies)])
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Optimization terminated successfully    (Exit mode 0)
-            Current function value: -0.2799412747259123
-            Iterations: 9
-            Function evaluations: 10
-            Gradient evaluations: 9
+            Current function value: -0.27994121131291816
+            Iterations: 10
+            Function evaluations: 11
+            Gradient evaluations: 10
 
 r2 = 0.41:
 Info    : [ 90%] Union - Splitting solids
@@ -2194,18 +2074,7 @@ Info    : [ 90%] Union - Splitting solids
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "f7488b8363ab4d8aae7ac1a87ec1180d"}</script></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/bodies/bodies.py:663: FutureWarning: In a future version of xarray the default value for join will change from join=&#39;outer&#39; to join=&#39;exact&#39;. This change will result in the following ValueError: cannot be aligned with join=&#39;exact&#39; because index/labels/sizes are not equal along these coordinates (dimensions): &#39;influenced_dof&#39; (&#39;influenced_dof&#39;,) The recommendation is to set join explicitly for this case.
-  total_mass_xr = xr.merge([rigid_inertia_matrix_xr, other_dofs_inertia_matrix_xr], compat=&#34;override&#34;).inertia_matrix
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/bodies/bodies.py:663: FutureWarning: In a future version of xarray the default value for join will change from join=&#39;outer&#39; to join=&#39;exact&#39;. This change will result in the following ValueError: cannot be aligned with join=&#39;exact&#39; because index/labels/sizes are not equal along these coordinates (dimensions): &#39;radiating_dof&#39; (&#39;radiating_dof&#39;,) The recommendation is to set join explicitly for this case.
-  total_mass_xr = xr.merge([rigid_inertia_matrix_xr, other_dofs_inertia_matrix_xr], compat=&#34;override&#34;).inertia_matrix
-</pre></div></div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "cd4bf0782eaf452da5f353d36a1d6c41"}</script></div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
@@ -2216,34 +2085,13 @@ Info    : [ 90%] Union - Splitting solids
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:260: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, {body_property: bodies_properties}])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:522: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, hydrostatics_dataset(bodies)])
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Optimization terminated successfully    (Exit mode 0)
-            Current function value: -0.28020867315723325
-            Iterations: 9
-            Function evaluations: 10
-            Gradient evaluations: 9
+            Current function value: -0.2802085742875032
+            Iterations: 11
+            Function evaluations: 11
+            Gradient evaluations: 11
 
 r2 = 0.52:
 Info    : [ 90%] Union - Splitting solids
@@ -2253,18 +2101,7 @@ Info    : [ 90%] Union - Splitting solids
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "9cf0cd5385b342ff87a396f7660ec22f"}</script></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/bodies/bodies.py:663: FutureWarning: In a future version of xarray the default value for join will change from join=&#39;outer&#39; to join=&#39;exact&#39;. This change will result in the following ValueError: cannot be aligned with join=&#39;exact&#39; because index/labels/sizes are not equal along these coordinates (dimensions): &#39;influenced_dof&#39; (&#39;influenced_dof&#39;,) The recommendation is to set join explicitly for this case.
-  total_mass_xr = xr.merge([rigid_inertia_matrix_xr, other_dofs_inertia_matrix_xr], compat=&#34;override&#34;).inertia_matrix
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/bodies/bodies.py:663: FutureWarning: In a future version of xarray the default value for join will change from join=&#39;outer&#39; to join=&#39;exact&#39;. This change will result in the following ValueError: cannot be aligned with join=&#39;exact&#39; because index/labels/sizes are not equal along these coordinates (dimensions): &#39;radiating_dof&#39; (&#39;radiating_dof&#39;,) The recommendation is to set join explicitly for this case.
-  total_mass_xr = xr.merge([rigid_inertia_matrix_xr, other_dofs_inertia_matrix_xr], compat=&#34;override&#34;).inertia_matrix
-</pre></div></div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "54fcf2a9749e4b78bd0f9de6bdbe3a7d"}</script></div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
@@ -2275,34 +2112,13 @@ Info    : [ 90%] Union - Splitting solids
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:260: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, {body_property: bodies_properties}])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:522: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, hydrostatics_dataset(bodies)])
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Optimization terminated successfully    (Exit mode 0)
-            Current function value: -0.28069501901362415
-            Iterations: 9
-            Function evaluations: 10
-            Gradient evaluations: 9
+            Current function value: -0.2806949164299348
+            Iterations: 11
+            Function evaluations: 11
+            Gradient evaluations: 11
 
 r2 = 0.64:
 Info    : [ 90%] Union - Splitting solids
@@ -2312,7 +2128,7 @@ Info    : [ 90%] Union - Splitting solids
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "6f05bc6b985a462196fdd5d244904e1d"}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "9963ad27d1c04878bdac07aa461b8ec6"}</script></div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
@@ -2323,34 +2139,13 @@ Info    : [ 90%] Union - Splitting solids
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:260: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, {body_property: bodies_properties}])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:522: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, hydrostatics_dataset(bodies)])
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Optimization terminated successfully    (Exit mode 0)
-            Current function value: -0.2816232285629372
-            Iterations: 10
-            Function evaluations: 10
-            Gradient evaluations: 10
+            Current function value: -0.2816236500586393
+            Iterations: 11
+            Function evaluations: 11
+            Gradient evaluations: 11
 
 r2 = 0.76:
 Info    : [ 90%] Union - Splitting solids
@@ -2360,18 +2155,7 @@ Info    : [ 90%] Union - Splitting solids
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "2fe69d6561f1471ea3b5abf800bfa672"}</script></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/bodies/bodies.py:663: FutureWarning: In a future version of xarray the default value for join will change from join=&#39;outer&#39; to join=&#39;exact&#39;. This change will result in the following ValueError: cannot be aligned with join=&#39;exact&#39; because index/labels/sizes are not equal along these coordinates (dimensions): &#39;influenced_dof&#39; (&#39;influenced_dof&#39;,) The recommendation is to set join explicitly for this case.
-  total_mass_xr = xr.merge([rigid_inertia_matrix_xr, other_dofs_inertia_matrix_xr], compat=&#34;override&#34;).inertia_matrix
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/bodies/bodies.py:663: FutureWarning: In a future version of xarray the default value for join will change from join=&#39;outer&#39; to join=&#39;exact&#39;. This change will result in the following ValueError: cannot be aligned with join=&#39;exact&#39; because index/labels/sizes are not equal along these coordinates (dimensions): &#39;radiating_dof&#39; (&#39;radiating_dof&#39;,) The recommendation is to set join explicitly for this case.
-  total_mass_xr = xr.merge([rigid_inertia_matrix_xr, other_dofs_inertia_matrix_xr], compat=&#34;override&#34;).inertia_matrix
-</pre></div></div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "5a7d74a79c7a494fbc81564629c566a9"}</script></div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
@@ -2382,34 +2166,13 @@ Info    : [ 90%] Union - Splitting solids
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:260: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, {body_property: bodies_properties}])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:522: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, hydrostatics_dataset(bodies)])
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Optimization terminated successfully    (Exit mode 0)
-            Current function value: -0.28344033764407195
-            Iterations: 9
-            Function evaluations: 10
-            Gradient evaluations: 9
+            Current function value: -0.2834403508405494
+            Iterations: 11
+            Function evaluations: 11
+            Gradient evaluations: 11
 
 r2 = 0.88:
 Info    : [ 90%] Union - Splitting solids
@@ -2419,7 +2182,7 @@ Info    : [ 90%] Union - Splitting solids
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "af9ce9982abb49898508fd2168deb297"}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "b539ce4974a24535b97f1ce37742dadb"}</script></div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
@@ -2427,37 +2190,16 @@ Info    : [ 90%] Union - Splitting solids
 <div class="output_area rendered_html docutils container">
 <pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"></pre></div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:260: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, {body_property: bodies_properties}])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:522: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, hydrostatics_dataset(bodies)])
-</pre></div></div>
-</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Optimization terminated successfully    (Exit mode 0)
-            Current function value: -0.2873971973229939
-            Iterations: 9
-            Function evaluations: 9
-            Gradient evaluations: 9
+            Current function value: -0.2873977008577282
+            Iterations: 11
+            Function evaluations: 11
+            Gradient evaluations: 11
 </pre></div></div>
 </div>
 </section>
@@ -2489,7 +2231,7 @@ Optimization terminated successfully    (Exit mode 0)
 </div>
 <p>Note that in this case the difference in average power between the different keel radii is rather small. This is because the PTO force constraint is active most of the time, therefore all considered geometries perform similarly. If you remove the PTO constraint and re-run the co-optimization study, you will see that the impact of radius on average electrical power is significantly higher.</p>
 <script type="application/vnd.jupyter.widget-state+json">
-{"state": {"c08fc79f8d714242bda09b641fcc7e00": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "6c68f307e503484cbafd760de19c1036": {"model_name": "OutputModel", "model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/output", "_model_module_version": "1.0.0", "_model_name": "OutputModel", "_view_count": null, "_view_module": "@jupyter-widgets/output", "_view_module_version": "1.0.0", "_view_name": "OutputView", "layout": "IPY_MODEL_c08fc79f8d714242bda09b641fcc7e00", "msg_id": "", "outputs": [{"output_type": "display_data", "metadata": {}, "data": {"text/plain": "Solving BEM problems \u001b[38;2;114;156;31m\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u001b[0m \u001b[35m100%\u001b[0m \u001b[33m0:01:16\u001b[0m\n", "text/html": "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\">Solving BEM problems <span style=\"color: #729c1f; text-decoration-color: #729c1f\">\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501</span> <span style=\"color: #800080; text-decoration-color: #800080\">100%</span> <span style=\"color: #808000; text-decoration-color: #808000\">0:01:16</span>\n</pre>\n"}}], "tabbable": null, "tooltip": null}}, "a71d69ad75774ce2bdcbb2510fef6017": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "a850958ae97c40fb9223c12b3c504070": {"model_name": "OutputModel", "model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/output", "_model_module_version": "1.0.0", "_model_name": "OutputModel", "_view_count": null, "_view_module": "@jupyter-widgets/output", "_view_module_version": "1.0.0", "_view_name": "OutputView", "layout": "IPY_MODEL_a71d69ad75774ce2bdcbb2510fef6017", "msg_id": "", "outputs": [{"output_type": "display_data", "metadata": {}, "data": {"text/plain": "Solving BEM problems \u001b[38;2;114;156;31m\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u001b[0m \u001b[35m100%\u001b[0m \u001b[33m0:00:02\u001b[0m\n", "text/html": "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\">Solving BEM problems <span style=\"color: #729c1f; text-decoration-color: #729c1f\">\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501</span> <span style=\"color: #800080; text-decoration-color: #800080\">100%</span> <span style=\"color: #808000; text-decoration-color: #808000\">0:00:02</span>\n</pre>\n"}}], "tabbable": null, "tooltip": null}}, "c50b20eccf404b4e8743c2f428535b51": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "aaa3e09a3a514ba6ba7e16c73bb2af17": {"model_name": "OutputModel", "model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/output", "_model_module_version": "1.0.0", "_model_name": "OutputModel", "_view_count": null, "_view_module": "@jupyter-widgets/output", "_view_module_version": "1.0.0", "_view_name": "OutputView", "layout": "IPY_MODEL_c50b20eccf404b4e8743c2f428535b51", "msg_id": "", "outputs": [{"output_type": "display_data", "metadata": {}, "data": {"text/plain": "Solving BEM problems \u001b[38;2;114;156;31m\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u001b[0m \u001b[35m100%\u001b[0m \u001b[33m0:00:01\u001b[0m\n", "text/html": "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\">Solving BEM problems <span style=\"color: #729c1f; text-decoration-color: #729c1f\">\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501</span> <span style=\"color: #800080; text-decoration-color: #800080\">100%</span> <span style=\"color: #808000; text-decoration-color: #808000\">0:00:01</span>\n</pre>\n"}}], "tabbable": null, "tooltip": null}}, "8676ad9810d94fa78e192d5086ddd0b8": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "07252294652b4c4ab8d90a9e9e7903cd": {"model_name": "OutputModel", "model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/output", "_model_module_version": "1.0.0", "_model_name": "OutputModel", "_view_count": null, "_view_module": "@jupyter-widgets/output", "_view_module_version": "1.0.0", "_view_name": "OutputView", "layout": "IPY_MODEL_8676ad9810d94fa78e192d5086ddd0b8", "msg_id": "", "outputs": [{"output_type": "display_data", "metadata": {}, "data": {"text/plain": "Solving BEM problems \u001b[38;2;114;156;31m\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u001b[0m \u001b[35m100%\u001b[0m \u001b[33m0:00:01\u001b[0m\n", "text/html": "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\">Solving BEM problems <span style=\"color: #729c1f; text-decoration-color: #729c1f\">\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501</span> <span style=\"color: #800080; text-decoration-color: #800080\">100%</span> <span style=\"color: #808000; text-decoration-color: #808000\">0:00:01</span>\n</pre>\n"}}], "tabbable": null, "tooltip": null}}, "783abe236865473abcd9ee389f052c4a": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "f7488b8363ab4d8aae7ac1a87ec1180d": {"model_name": "OutputModel", "model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/output", "_model_module_version": "1.0.0", "_model_name": "OutputModel", "_view_count": null, "_view_module": "@jupyter-widgets/output", "_view_module_version": "1.0.0", "_view_name": "OutputView", "layout": "IPY_MODEL_783abe236865473abcd9ee389f052c4a", "msg_id": "", "outputs": [{"output_type": "display_data", "metadata": {}, "data": {"text/plain": "Solving BEM problems \u001b[38;2;114;156;31m\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u001b[0m \u001b[35m100%\u001b[0m \u001b[33m0:00:01\u001b[0m\n", "text/html": "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\">Solving BEM problems <span style=\"color: #729c1f; text-decoration-color: #729c1f\">\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501</span> <span style=\"color: #800080; text-decoration-color: #800080\">100%</span> <span style=\"color: #808000; text-decoration-color: #808000\">0:00:01</span>\n</pre>\n"}}], "tabbable": null, "tooltip": null}}, "25977bcb961a4bb197e9f9f0203659cb": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "9cf0cd5385b342ff87a396f7660ec22f": {"model_name": "OutputModel", "model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/output", "_model_module_version": "1.0.0", "_model_name": "OutputModel", "_view_count": null, "_view_module": "@jupyter-widgets/output", "_view_module_version": "1.0.0", "_view_name": "OutputView", "layout": "IPY_MODEL_25977bcb961a4bb197e9f9f0203659cb", "msg_id": "", "outputs": [{"output_type": "display_data", "metadata": {}, "data": {"text/plain": "Solving BEM problems \u001b[38;2;114;156;31m\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u001b[0m \u001b[35m100%\u001b[0m \u001b[33m0:00:01\u001b[0m\n", "text/html": "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\">Solving BEM problems <span style=\"color: #729c1f; text-decoration-color: #729c1f\">\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501</span> <span style=\"color: #800080; text-decoration-color: #800080\">100%</span> <span style=\"color: #808000; text-decoration-color: #808000\">0:00:01</span>\n</pre>\n"}}], "tabbable": null, "tooltip": null}}, "b12a6aad8d86478fa6d2745ac4220e3c": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "6f05bc6b985a462196fdd5d244904e1d": {"model_name": "OutputModel", "model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/output", "_model_module_version": "1.0.0", "_model_name": "OutputModel", "_view_count": null, "_view_module": "@jupyter-widgets/output", "_view_module_version": "1.0.0", "_view_name": "OutputView", "layout": "IPY_MODEL_b12a6aad8d86478fa6d2745ac4220e3c", "msg_id": "", "outputs": [{"output_type": "display_data", "metadata": {}, "data": {"text/plain": "Solving BEM problems \u001b[38;2;114;156;31m\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u001b[0m \u001b[35m100%\u001b[0m \u001b[33m0:00:01\u001b[0m\n", "text/html": "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\">Solving BEM problems <span style=\"color: #729c1f; text-decoration-color: #729c1f\">\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501</span> <span style=\"color: #800080; text-decoration-color: #800080\">100%</span> <span style=\"color: #808000; text-decoration-color: #808000\">0:00:01</span>\n</pre>\n"}}], "tabbable": null, "tooltip": null}}, "1007dbf849264a2397bcf1f04b4a10b7": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "2fe69d6561f1471ea3b5abf800bfa672": {"model_name": "OutputModel", "model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/output", "_model_module_version": "1.0.0", "_model_name": "OutputModel", "_view_count": null, "_view_module": "@jupyter-widgets/output", "_view_module_version": "1.0.0", "_view_name": "OutputView", "layout": "IPY_MODEL_1007dbf849264a2397bcf1f04b4a10b7", "msg_id": "", "outputs": [{"output_type": "display_data", "metadata": {}, "data": {"text/plain": "Solving BEM problems \u001b[38;2;114;156;31m\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u001b[0m \u001b[35m100%\u001b[0m \u001b[33m0:00:01\u001b[0m\n", "text/html": "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\">Solving BEM problems <span style=\"color: #729c1f; text-decoration-color: #729c1f\">\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501</span> <span style=\"color: #800080; text-decoration-color: #800080\">100%</span> <span style=\"color: #808000; text-decoration-color: #808000\">0:00:01</span>\n</pre>\n"}}], "tabbable": null, "tooltip": null}}, "ef57008bad164c018259062d82308276": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "af9ce9982abb49898508fd2168deb297": {"model_name": "OutputModel", "model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/output", "_model_module_version": "1.0.0", "_model_name": "OutputModel", "_view_count": null, "_view_module": "@jupyter-widgets/output", "_view_module_version": "1.0.0", "_view_name": "OutputView", "layout": "IPY_MODEL_ef57008bad164c018259062d82308276", "msg_id": "", "outputs": [{"output_type": "display_data", "metadata": {}, "data": {"text/plain": "Solving BEM problems \u001b[38;2;114;156;31m\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u001b[0m \u001b[35m100%\u001b[0m \u001b[33m0:00:01\u001b[0m\n", "text/html": "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\">Solving BEM problems <span style=\"color: #729c1f; text-decoration-color: #729c1f\">\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501</span> <span style=\"color: #800080; text-decoration-color: #800080\">100%</span> <span style=\"color: #808000; text-decoration-color: #808000\">0:00:01</span>\n</pre>\n"}}], "tabbable": null, "tooltip": null}}}, "version_major": 2, "version_minor": 0}
+{"state": {"b5ad6f4872bb409287314cea824745bd": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "82e222bbf7554179a183008b59b60243": {"model_name": "OutputModel", "model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/output", "_model_module_version": "1.0.0", "_model_name": "OutputModel", "_view_count": null, "_view_module": "@jupyter-widgets/output", "_view_module_version": "1.0.0", "_view_name": "OutputView", "layout": "IPY_MODEL_b5ad6f4872bb409287314cea824745bd", "msg_id": "", "outputs": [{"output_type": "display_data", "metadata": {}, "data": {"text/plain": "Solving BEM problems \u001b[38;2;114;156;31m\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u001b[0m \u001b[35m100%\u001b[0m \u001b[33m0:01:18\u001b[0m\n", "text/html": "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\">Solving BEM problems <span style=\"color: #729c1f; text-decoration-color: #729c1f\">\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501</span> <span style=\"color: #800080; text-decoration-color: #800080\">100%</span> <span style=\"color: #808000; text-decoration-color: #808000\">0:01:18</span>\n</pre>\n"}}], "tabbable": null, "tooltip": null}}, "86f3c8fb38fd424b9ba0b4cce3b79ca9": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "0a47ab6bec034cce9fc0c891dd506c64": {"model_name": "OutputModel", "model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/output", "_model_module_version": "1.0.0", "_model_name": "OutputModel", "_view_count": null, "_view_module": "@jupyter-widgets/output", "_view_module_version": "1.0.0", "_view_name": "OutputView", "layout": "IPY_MODEL_86f3c8fb38fd424b9ba0b4cce3b79ca9", "msg_id": "", "outputs": [{"output_type": "display_data", "metadata": {}, "data": {"text/plain": "Solving BEM problems \u001b[38;2;114;156;31m\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u001b[0m \u001b[35m100%\u001b[0m \u001b[33m0:00:02\u001b[0m\n", "text/html": "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\">Solving BEM problems <span style=\"color: #729c1f; text-decoration-color: #729c1f\">\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501</span> <span style=\"color: #800080; text-decoration-color: #800080\">100%</span> <span style=\"color: #808000; text-decoration-color: #808000\">0:00:02</span>\n</pre>\n"}}], "tabbable": null, "tooltip": null}}, "ca29a05f75454309b75d405470888170": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "d9d1ac9b6f9347bbbe2b87e9ac70ef70": {"model_name": "OutputModel", "model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/output", "_model_module_version": "1.0.0", "_model_name": "OutputModel", "_view_count": null, "_view_module": "@jupyter-widgets/output", "_view_module_version": "1.0.0", "_view_name": "OutputView", "layout": "IPY_MODEL_ca29a05f75454309b75d405470888170", "msg_id": "", "outputs": [{"output_type": "display_data", "metadata": {}, "data": {"text/plain": "Solving BEM problems \u001b[38;2;114;156;31m\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u001b[0m \u001b[35m100%\u001b[0m \u001b[33m0:00:01\u001b[0m\n", "text/html": "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\">Solving BEM problems <span style=\"color: #729c1f; text-decoration-color: #729c1f\">\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501</span> <span style=\"color: #800080; text-decoration-color: #800080\">100%</span> <span style=\"color: #808000; text-decoration-color: #808000\">0:00:01</span>\n</pre>\n"}}], "tabbable": null, "tooltip": null}}, "dfb113b6dbf9492c98be15724c52906b": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "61d6fbd2f8f24279b887fdea45cc6b9b": {"model_name": "OutputModel", "model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/output", "_model_module_version": "1.0.0", "_model_name": "OutputModel", "_view_count": null, "_view_module": "@jupyter-widgets/output", "_view_module_version": "1.0.0", "_view_name": "OutputView", "layout": "IPY_MODEL_dfb113b6dbf9492c98be15724c52906b", "msg_id": "", "outputs": [{"output_type": "display_data", "metadata": {}, "data": {"text/plain": "Solving BEM problems \u001b[38;2;114;156;31m\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u001b[0m \u001b[35m100%\u001b[0m \u001b[33m0:00:01\u001b[0m\n", "text/html": "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\">Solving BEM problems <span style=\"color: #729c1f; text-decoration-color: #729c1f\">\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501</span> <span style=\"color: #800080; text-decoration-color: #800080\">100%</span> <span style=\"color: #808000; text-decoration-color: #808000\">0:00:01</span>\n</pre>\n"}}], "tabbable": null, "tooltip": null}}, "36ea967b7f7f4b629cffa357c36cca67": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "cd4bf0782eaf452da5f353d36a1d6c41": {"model_name": "OutputModel", "model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/output", "_model_module_version": "1.0.0", "_model_name": "OutputModel", "_view_count": null, "_view_module": "@jupyter-widgets/output", "_view_module_version": "1.0.0", "_view_name": "OutputView", "layout": "IPY_MODEL_36ea967b7f7f4b629cffa357c36cca67", "msg_id": "", "outputs": [{"output_type": "display_data", "metadata": {}, "data": {"text/plain": "Solving BEM problems \u001b[38;2;114;156;31m\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u001b[0m \u001b[35m100%\u001b[0m \u001b[33m0:00:01\u001b[0m\n", "text/html": "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\">Solving BEM problems <span style=\"color: #729c1f; text-decoration-color: #729c1f\">\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501</span> <span style=\"color: #800080; text-decoration-color: #800080\">100%</span> <span style=\"color: #808000; text-decoration-color: #808000\">0:00:01</span>\n</pre>\n"}}], "tabbable": null, "tooltip": null}}, "ffaa8bbc32cb495ea52093e6f8200392": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "54fcf2a9749e4b78bd0f9de6bdbe3a7d": {"model_name": "OutputModel", "model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/output", "_model_module_version": "1.0.0", "_model_name": "OutputModel", "_view_count": null, "_view_module": "@jupyter-widgets/output", "_view_module_version": "1.0.0", "_view_name": "OutputView", "layout": "IPY_MODEL_ffaa8bbc32cb495ea52093e6f8200392", "msg_id": "", "outputs": [{"output_type": "display_data", "metadata": {}, "data": {"text/plain": "Solving BEM problems \u001b[38;2;114;156;31m\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u001b[0m \u001b[35m100%\u001b[0m \u001b[33m0:00:01\u001b[0m\n", "text/html": "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\">Solving BEM problems <span style=\"color: #729c1f; text-decoration-color: #729c1f\">\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501</span> <span style=\"color: #800080; text-decoration-color: #800080\">100%</span> <span style=\"color: #808000; text-decoration-color: #808000\">0:00:01</span>\n</pre>\n"}}], "tabbable": null, "tooltip": null}}, "49e5eb9ce9b340eda0bbfa4c4d936e28": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "9963ad27d1c04878bdac07aa461b8ec6": {"model_name": "OutputModel", "model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/output", "_model_module_version": "1.0.0", "_model_name": "OutputModel", "_view_count": null, "_view_module": "@jupyter-widgets/output", "_view_module_version": "1.0.0", "_view_name": "OutputView", "layout": "IPY_MODEL_49e5eb9ce9b340eda0bbfa4c4d936e28", "msg_id": "", "outputs": [{"output_type": "display_data", "metadata": {}, "data": {"text/plain": "Solving BEM problems \u001b[38;2;114;156;31m\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u001b[0m \u001b[35m100%\u001b[0m \u001b[33m0:00:01\u001b[0m\n", "text/html": "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\">Solving BEM problems <span style=\"color: #729c1f; text-decoration-color: #729c1f\">\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501</span> <span style=\"color: #800080; text-decoration-color: #800080\">100%</span> <span style=\"color: #808000; text-decoration-color: #808000\">0:00:01</span>\n</pre>\n"}}], "tabbable": null, "tooltip": null}}, "bbcb573715a44628ba0791c5221a60b7": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "5a7d74a79c7a494fbc81564629c566a9": {"model_name": "OutputModel", "model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/output", "_model_module_version": "1.0.0", "_model_name": "OutputModel", "_view_count": null, "_view_module": "@jupyter-widgets/output", "_view_module_version": "1.0.0", "_view_name": "OutputView", "layout": "IPY_MODEL_bbcb573715a44628ba0791c5221a60b7", "msg_id": "", "outputs": [{"output_type": "display_data", "metadata": {}, "data": {"text/plain": "Solving BEM problems \u001b[38;2;114;156;31m\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u001b[0m \u001b[35m100%\u001b[0m \u001b[33m0:00:01\u001b[0m\n", "text/html": "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\">Solving BEM problems <span style=\"color: #729c1f; text-decoration-color: #729c1f\">\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501</span> <span style=\"color: #800080; text-decoration-color: #800080\">100%</span> <span style=\"color: #808000; text-decoration-color: #808000\">0:00:01</span>\n</pre>\n"}}], "tabbable": null, "tooltip": null}}, "008fa7c4176243adacb4cfb846b12dc0": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "b539ce4974a24535b97f1ce37742dadb": {"model_name": "OutputModel", "model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/output", "_model_module_version": "1.0.0", "_model_name": "OutputModel", "_view_count": null, "_view_module": "@jupyter-widgets/output", "_view_module_version": "1.0.0", "_view_name": "OutputView", "layout": "IPY_MODEL_008fa7c4176243adacb4cfb846b12dc0", "msg_id": "", "outputs": [{"output_type": "display_data", "metadata": {}, "data": {"text/plain": "Solving BEM problems \u001b[38;2;114;156;31m\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u001b[0m \u001b[35m100%\u001b[0m \u001b[33m0:00:01\u001b[0m\n", "text/html": "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\">Solving BEM problems <span style=\"color: #729c1f; text-decoration-color: #729c1f\">\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501</span> <span style=\"color: #800080; text-decoration-color: #800080\">100%</span> <span style=\"color: #808000; text-decoration-color: #808000\">0:00:01</span>\n</pre>\n"}}], "tabbable": null, "tooltip": null}}}, "version_major": 2, "version_minor": 0}
 </script></section>
 </section>
 </section>

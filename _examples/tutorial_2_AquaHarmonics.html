@@ -6,21 +6,21 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tutorial 2 - AquaHarmonics &mdash; WecOptTool 3.1.1 documentation</title>
+  <title>Tutorial 2 - AquaHarmonics &mdash; WecOptTool 3.2.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=a0fb6060" />
       <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
 
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=796a81b5"></script>
-      <script src="../_static/doctools.js?v=9bcbadda"></script>
-      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/documentation_options.js?v=eb155f5e"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
       <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -134,7 +134,8 @@
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">capytaine</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cpy</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">capytaine.io.meshio</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_from_meshio</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">autograd.numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">jax.numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">jnp</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">cm</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">brute</span>
@@ -206,7 +207,7 @@
 <section id="Hydrostatics-and-mass">
 <h4>Hydrostatics and mass<a class="headerlink" href="#Hydrostatics-and-mass" title="Link to this heading"></a></h4>
 <p>The AquaHarmonics device is positively buoyant (i.e., the buoyancy force is greater than the force due to gravity). Therefore we will set the rigid-body mass manually (unlike Tutorial 1), but allow the hydrostatic stiffness to be set automatically by the <code class="docutils literal notranslate"><span class="pre">run_bem</span></code> function based on the mesh. We will also calculate the displaced volume and mass from the mesh (before manually defining the mass of the FloatingBody), which we will need later for defining forces and constraints.</p>
-<div class="nbinput docutils container">
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
@@ -220,17 +221,6 @@
 <span class="n">fb</span><span class="o">.</span><span class="n">mass</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="mf">5e3</span><span class="p">)</span> <span class="c1"># kg</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/bodies/bodies.py:663: FutureWarning: In a future version of xarray the default value for join will change from join=&#39;outer&#39; to join=&#39;exact&#39;. This change will result in the following ValueError: cannot be aligned with join=&#39;exact&#39; because index/labels/sizes are not equal along these coordinates (dimensions): &#39;influenced_dof&#39; (&#39;influenced_dof&#39;,) The recommendation is to set join explicitly for this case.
-  total_mass_xr = xr.merge([rigid_inertia_matrix_xr, other_dofs_inertia_matrix_xr], compat=&#34;override&#34;).inertia_matrix
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/bodies/bodies.py:663: FutureWarning: In a future version of xarray the default value for join will change from join=&#39;outer&#39; to join=&#39;exact&#39;. This change will result in the following ValueError: cannot be aligned with join=&#39;exact&#39; because index/labels/sizes are not equal along these coordinates (dimensions): &#39;radiating_dof&#39; (&#39;radiating_dof&#39;,) The recommendation is to set join explicitly for this case.
-  total_mass_xr = xr.merge([rigid_inertia_matrix_xr, other_dofs_inertia_matrix_xr], compat=&#34;override&#34;).inertia_matrix
-</pre></div></div>
 </div>
 </section>
 </section>
@@ -278,7 +268,7 @@ WARNING:wecopttool.core:center_of_mass already defined as [0, 0, 0].
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area rendered_html docutils container">
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[18:44:32] </span><span style="color: #808000; text-decoration-color: #808000">WARNING </span> center_of_mass already defined as <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span><span style="font-weight: bold">]</span>.
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[19:01:11] </span><span style="color: #808000; text-decoration-color: #808000">WARNING </span> center_of_mass already defined as <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span><span style="font-weight: bold">]</span>.
 </pre></div>
 </div>
 <div class="nboutput docutils container">
@@ -317,10 +307,6 @@ WARNING:wecopttool.core:FloatingBody has no inertia_matrix field. The FloatingBo
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/bodies/bodies.py:663: FutureWarning: In a future version of xarray the default value for join will change from join=&#39;outer&#39; to join=&#39;exact&#39;. This change will result in the following ValueError: cannot be aligned with join=&#39;exact&#39; because index/labels/sizes are not equal along these coordinates (dimensions): &#39;influenced_dof&#39; (&#39;influenced_dof&#39;,) The recommendation is to set join explicitly for this case.
-  total_mass_xr = xr.merge([rigid_inertia_matrix_xr, other_dofs_inertia_matrix_xr], compat=&#34;override&#34;).inertia_matrix
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/bodies/bodies.py:663: FutureWarning: In a future version of xarray the default value for join will change from join=&#39;outer&#39; to join=&#39;exact&#39;. This change will result in the following ValueError: cannot be aligned with join=&#39;exact&#39; because index/labels/sizes are not equal along these coordinates (dimensions): &#39;radiating_dof&#39; (&#39;radiating_dof&#39;,) The recommendation is to set join explicitly for this case.
-  total_mass_xr = xr.merge([rigid_inertia_matrix_xr, other_dofs_inertia_matrix_xr], compat=&#34;override&#34;).inertia_matrix
 WARNING:wecopttool.core:FloatingBody has no hydrostatic_stiffness field. Capytaine will auto-populate the hydrostatic stiffness based on the provided mesh.
 </pre></div></div>
 </div>
@@ -355,34 +341,13 @@ This warning appears when the largest panel of this mesh has radius &gt; wavelen
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "7bcb8a19b90d4ee9ad91c07bb98560f5"}</script></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area rendered_html docutils container">
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"></pre></div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "1c9b1e099cfd41ab9ec412363bbae3b7"}</script></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:428: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, diffraction_cases])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:260: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, {body_property: bodies_properties}])
-/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/site-packages/capytaine/io/xarray.py:522: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
-  dataset = xr.merge([dataset, hydrostatics_dataset(bodies)])
-</pre></div></div>
+<div class="output_area rendered_html docutils container">
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"></pre></div>
 </div>
 <p>We can also quickly plot the results to confirm they look reasonable.</p>
 <div class="nbinput docutils container">
@@ -512,7 +477,7 @@ This warning appears when the largest panel of this mesh has radius &gt; wavelen
 <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">torque_max</span><span class="p">,</span> <span class="mf">1.0</span><span class="o">*</span><span class="n">torque_max</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 <span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 <span class="n">Z</span> <span class="o">=</span> <span class="n">power_loss</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">/</span><span class="mf">1e3</span>
-<span class="n">Z</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">X</span><span class="o">*</span><span class="n">Y</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">power_max</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span>  <span class="c1"># cut off area outside of power limit</span>
+<span class="n">Z</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">X</span><span class="o">*</span><span class="n">Y</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">power_max</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>  <span class="c1"># cut off area outside of power limit</span>
 
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">figaspect</span><span class="p">(</span><span class="mf">0.4</span><span class="p">))</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="p">[</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;3d&quot;</span><span class="p">),</span>
@@ -575,10 +540,10 @@ This warning appears when the largest panel of this mesh has radius &gt; wavelen
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">f_buoyancy</span><span class="p">(</span><span class="n">wec</span><span class="p">,</span> <span class="n">x_wec</span><span class="p">,</span> <span class="n">x_opt</span><span class="p">,</span> <span class="n">wave</span><span class="p">,</span> <span class="n">nsubsteps</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Only the zeroth order component (doesn&#39;t include linear stiffness)&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">displacement</span> <span class="o">*</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">g</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="n">wec</span><span class="o">.</span><span class="n">ncomponents</span><span class="o">*</span><span class="n">nsubsteps</span><span class="p">,</span> <span class="n">wec</span><span class="o">.</span><span class="n">ndof</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">displacement</span> <span class="o">*</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">g</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="n">wec</span><span class="o">.</span><span class="n">ncomponents</span><span class="o">*</span><span class="n">nsubsteps</span><span class="p">,</span> <span class="n">wec</span><span class="o">.</span><span class="n">ndof</span><span class="p">])</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">f_gravity</span><span class="p">(</span><span class="n">wec</span><span class="p">,</span> <span class="n">x_wec</span><span class="p">,</span> <span class="n">x_opt</span><span class="p">,</span> <span class="n">wave</span><span class="p">,</span> <span class="n">nsubsteps</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">wec</span><span class="o">.</span><span class="n">inertia_matrix</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">*</span> <span class="n">g</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="n">wec</span><span class="o">.</span><span class="n">ncomponents</span><span class="o">*</span><span class="n">nsubsteps</span><span class="p">,</span> <span class="n">wec</span><span class="o">.</span><span class="n">ndof</span><span class="p">])</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">wec</span><span class="o">.</span><span class="n">inertia_matrix</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">*</span> <span class="n">g</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="n">wec</span><span class="o">.</span><span class="n">ncomponents</span><span class="o">*</span><span class="n">nsubsteps</span><span class="p">,</span> <span class="n">wec</span><span class="o">.</span><span class="n">ndof</span><span class="p">])</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">f_pretension_wec</span><span class="p">(</span><span class="n">wec</span><span class="p">,</span> <span class="n">x_wec</span><span class="p">,</span> <span class="n">x_opt</span><span class="p">,</span> <span class="n">wave</span><span class="p">,</span> <span class="n">nsubsteps</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Pretension force as it acts on the WEC&quot;&quot;&quot;</span>
@@ -588,18 +553,18 @@ This warning appears when the largest panel of this mesh has radius &gt; wavelen
 
 <span class="k">def</span><span class="w"> </span><span class="nf">f_pto_passive</span><span class="p">(</span><span class="n">wec</span><span class="p">,</span> <span class="n">x_wec</span><span class="p">,</span> <span class="n">x_opt</span><span class="p">,</span> <span class="n">wave</span><span class="p">,</span> <span class="n">nsubsteps</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="n">pos</span> <span class="o">=</span> <span class="n">wec</span><span class="o">.</span><span class="n">vec_to_dofmat</span><span class="p">(</span><span class="n">x_wec</span><span class="p">)</span>
-    <span class="n">vel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">wec</span><span class="o">.</span><span class="n">derivative_mat</span><span class="p">,</span><span class="n">pos</span><span class="p">)</span>
-    <span class="n">acc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">wec</span><span class="o">.</span><span class="n">derivative_mat</span><span class="p">,</span> <span class="n">vel</span><span class="p">)</span>
+    <span class="n">vel</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">wec</span><span class="o">.</span><span class="n">derivative_mat</span><span class="p">,</span><span class="n">pos</span><span class="p">)</span>
+    <span class="n">acc</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">wec</span><span class="o">.</span><span class="n">derivative_mat</span><span class="p">,</span> <span class="n">vel</span><span class="p">)</span>
     <span class="n">time_matrix</span> <span class="o">=</span> <span class="n">wec</span><span class="o">.</span><span class="n">time_mat_nsubsteps</span><span class="p">(</span><span class="n">nsubsteps</span><span class="p">)</span>
     <span class="n">spring</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">gear_ratios</span><span class="p">[</span><span class="s1">&#39;spring&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">airspring</span><span class="p">[</span><span class="s1">&#39;gamma&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">airspring</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span><span class="o">*</span>
               <span class="n">airspring</span><span class="p">[</span><span class="s1">&#39;press_init&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">airspring</span><span class="p">[</span><span class="s1">&#39;vol_init&#39;</span><span class="p">])</span> <span class="o">*</span> <span class="n">pos</span>
-    <span class="n">f_spring</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">time_matrix</span><span class="p">,</span><span class="n">spring</span><span class="p">)</span>
+    <span class="n">f_spring</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">time_matrix</span><span class="p">,</span><span class="n">spring</span><span class="p">)</span>
     <span class="n">fric</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">friction_pto</span>  <span class="o">+</span>
                 <span class="n">friction</span><span class="p">[</span><span class="s1">&#39;Bpneumatic_spring_static1&#39;</span><span class="p">]</span><span class="o">*</span>
                 <span class="n">gear_ratios</span><span class="p">[</span><span class="s1">&#39;spring&#39;</span><span class="p">])</span> <span class="o">*</span> <span class="n">vel</span>
-    <span class="n">f_fric</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">time_matrix</span><span class="p">,</span><span class="n">fric</span><span class="p">)</span>
+    <span class="n">f_fric</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">time_matrix</span><span class="p">,</span><span class="n">fric</span><span class="p">)</span>
     <span class="n">inertia</span> <span class="o">=</span> <span class="n">inertia_pto</span> <span class="o">*</span> <span class="n">acc</span>
-    <span class="n">f_inertia</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">time_matrix</span><span class="p">,</span><span class="n">inertia</span><span class="p">)</span>
+    <span class="n">f_inertia</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">time_matrix</span><span class="p">,</span><span class="n">inertia</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">f_spring</span> <span class="o">+</span> <span class="n">f_fric</span> <span class="o">+</span> <span class="n">f_inertia</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">f_pto_line</span><span class="p">(</span><span class="n">wec</span><span class="p">,</span> <span class="n">x_wec</span><span class="p">,</span> <span class="n">x_opt</span><span class="p">,</span> <span class="n">wave</span><span class="p">,</span> <span class="n">nsubsteps</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
@@ -641,18 +606,18 @@ This warning appears when the largest panel of this mesh has radius &gt; wavelen
 
 <span class="k">def</span><span class="w"> </span><span class="nf">const_peak_torque_pto</span><span class="p">(</span><span class="n">wec</span><span class="p">,</span> <span class="n">x_wec</span><span class="p">,</span> <span class="n">x_opt</span><span class="p">,</span> <span class="n">wave</span><span class="p">):</span>
     <span class="n">torque</span> <span class="o">=</span> <span class="n">pto</span><span class="o">.</span><span class="n">force</span><span class="p">(</span><span class="n">wec</span><span class="p">,</span> <span class="n">x_wec</span><span class="p">,</span> <span class="n">x_opt</span><span class="p">,</span> <span class="n">wave</span><span class="p">,</span> <span class="n">nsubsteps</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">torque_peak_max</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">torque</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">torque_peak_max</span> <span class="o">-</span> <span class="n">jnp</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">torque</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">const_speed_pto</span><span class="p">(</span><span class="n">wec</span><span class="p">,</span> <span class="n">x_wec</span><span class="p">,</span> <span class="n">x_opt</span><span class="p">,</span> <span class="n">wave</span><span class="p">):</span>
     <span class="n">rot_vel</span> <span class="o">=</span> <span class="n">pto</span><span class="o">.</span><span class="n">velocity</span><span class="p">(</span><span class="n">wec</span><span class="p">,</span> <span class="n">x_wec</span><span class="p">,</span> <span class="n">x_opt</span><span class="p">,</span> <span class="n">wave</span><span class="p">,</span> <span class="n">nsubsteps</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">rot_speed_max</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">rot_vel</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">rot_speed_max</span> <span class="o">-</span> <span class="n">jnp</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">rot_vel</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">const_power_pto</span><span class="p">(</span><span class="n">wec</span><span class="p">,</span> <span class="n">x_wec</span><span class="p">,</span> <span class="n">x_opt</span><span class="p">,</span> <span class="n">wave</span><span class="p">):</span>
     <span class="n">power_mech</span> <span class="o">=</span> <span class="p">(</span>
         <span class="n">pto</span><span class="o">.</span><span class="n">velocity</span><span class="p">(</span><span class="n">wec</span><span class="p">,</span> <span class="n">x_wec</span><span class="p">,</span> <span class="n">x_opt</span><span class="p">,</span> <span class="n">wave</span><span class="p">,</span> <span class="n">nsubsteps</span><span class="p">)</span> <span class="o">*</span>
         <span class="n">pto</span><span class="o">.</span><span class="n">force</span><span class="p">(</span><span class="n">wec</span><span class="p">,</span> <span class="n">x_wec</span><span class="p">,</span> <span class="n">x_opt</span><span class="p">,</span> <span class="n">wave</span><span class="p">,</span> <span class="n">nsubsteps</span><span class="p">)</span>
     <span class="p">)</span>
-    <span class="k">return</span> <span class="n">power_max</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">power_mech</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">power_max</span> <span class="o">-</span> <span class="n">jnp</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">power_mech</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">constrain_min_tension</span><span class="p">(</span><span class="n">wec</span><span class="p">,</span> <span class="n">x_wec</span><span class="p">,</span> <span class="n">x_opt</span><span class="p">,</span> <span class="n">wave</span><span class="p">):</span>
     <span class="n">total_tension</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">f_pto_line</span><span class="p">(</span><span class="n">wec</span><span class="p">,</span> <span class="n">x_wec</span><span class="p">,</span> <span class="n">x_opt</span><span class="p">,</span> <span class="n">wave</span><span class="p">,</span> <span class="n">nsubsteps</span><span class="p">)</span>
@@ -704,7 +669,7 @@ WARNING:wecopttool.core:Linear damping for DOF &#34;Heave&#34; has negative or c
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area rendered_html docutils container">
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[18:44:46] </span><span style="color: #808000; text-decoration-color: #808000">WARNING </span> Linear damping for DOF <span style="color: #008000; text-decoration-color: #008000">"Heave"</span> has negative or close to zero terms. Shifting up damping terms
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[19:01:26] </span><span style="color: #808000; text-decoration-color: #808000">WARNING </span> Linear damping for DOF <span style="color: #008000; text-decoration-color: #008000">"Heave"</span> has negative or close to zero terms. Shifting up damping terms
 <span style="color: #7fbfbf; text-decoration-color: #7fbfbf">           </span>         <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">9</span><span style="font-weight: bold">]</span> to a minimum of <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1e-06</span> N/<span style="font-weight: bold">(</span>m/s<span style="font-weight: bold">)</span>
 </pre></div>
 </div>
@@ -757,7 +722,7 @@ WARNING:wecopttool.core:Linear damping for DOF &#34;Heave&#34; has negative or c
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Optimization terminated successfully    (Exit mode 0)
-            Current function value: -1.5763085933775394
+            Current function value: -1.5763085933775385
             Iterations: 33
             Function evaluations: 33
             Gradient evaluations: 33
@@ -782,11 +747,11 @@ Optimal average power: -1.58 kW
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-/home/runner/work/WecOptTool/WecOptTool/wecopttool/core.py:964: FutureWarning: In a future version of xarray the default value for join will change from join=&#39;outer&#39; to join=&#39;exact&#39;. This change will result in the following ValueError: cannot be aligned with join=&#39;exact&#39; because index/labels/sizes are not equal along these coordinates (dimensions): &#39;omega&#39; (&#39;omega&#39;,) The recommendation is to set join explicitly for this case.
+/home/runner/work/WecOptTool/WecOptTool/wecopttool/core.py:967: FutureWarning: In a future version of xarray the default value for join will change from join=&#39;outer&#39; to join=&#39;exact&#39;. This change will result in the following ValueError: cannot be aligned with join=&#39;exact&#39; because index/labels/sizes are not equal along these coordinates (dimensions): &#39;omega&#39; (&#39;omega&#39;,) The recommendation is to set join explicitly for this case.
   results_fd = xr.merge([fd_state, fd_forces, wave])
-/home/runner/work/WecOptTool/WecOptTool/wecopttool/core.py:964: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
+/home/runner/work/WecOptTool/WecOptTool/wecopttool/core.py:967: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
   results_fd = xr.merge([fd_state, fd_forces, wave])
-/home/runner/work/WecOptTool/WecOptTool/wecopttool/core.py:964: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
+/home/runner/work/WecOptTool/WecOptTool/wecopttool/core.py:967: FutureWarning: In a future version of xarray the default value for compat will change from compat=&#39;no_conflicts&#39; to compat=&#39;override&#39;. This is likely to lead to different results when combining overlapping variables with the same name. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set compat explicitly.
   results_fd = xr.merge([fd_state, fd_forces, wave])
 </pre></div></div>
 </div>
@@ -819,9 +784,7 @@ Optimal average power: -1.58 kW
 </symbol>
 </defs>
 </svg>
-<style>/* CSS stylesheet for displaying xarray objects in jupyterlab.
- *
- */
+<style>/* CSS stylesheet for displaying xarray objects in notebooks */
 
 :root {
   --xr-font-color0: var(
@@ -900,6 +863,8 @@ body.vscode-dark {
   display: block !important;
   min-width: 300px;
   max-width: 700px;
+  line-height: 1.6;
+  padding-bottom: 4px;
 }
 
 .xr-text-repr-fallback {
@@ -910,8 +875,11 @@ body.vscode-dark {
 .xr-header {
   padding-top: 6px;
   padding-bottom: 6px;
-  margin-bottom: 4px;
+}
+
+.xr-header {
   border-bottom: solid 1px var(--xr-border-color);
+  margin-bottom: 4px;
 }
 
 .xr-header > div,
@@ -922,46 +890,62 @@ body.vscode-dark {
 }
 
 .xr-obj-type,
-.xr-array-name {
+.xr-obj-name {
   margin-left: 2px;
   margin-right: 10px;
 }
 
-.xr-obj-type {
+.xr-obj-type,
+.xr-group-box-contents > label {
   color: var(--xr-font-color2);
+  display: block;
 }
 
 .xr-sections {
   padding-left: 0 !important;
   display: grid;
   grid-template-columns: 150px auto auto 1fr 0 20px 0 20px;
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
 
 .xr-section-item {
   display: contents;
 }
 
-.xr-section-item input {
-  display: inline-block;
+.xr-section-item > input,
+.xr-group-box-contents > input,
+.xr-array-wrap > input {
+  display: block;
   opacity: 0;
   height: 0;
+  margin: 0;
 }
 
-.xr-section-item input + label {
+.xr-section-item > input + label,
+.xr-var-item > input + label {
   color: var(--xr-disabled-color);
-  border: 2px solid transparent !important;
 }
 
-.xr-section-item input:enabled + label {
+.xr-section-item > input:enabled + label,
+.xr-var-item > input:enabled + label,
+.xr-array-wrap > input:enabled + label,
+.xr-group-box-contents > input:enabled + label {
   cursor: pointer;
   color: var(--xr-font-color2);
 }
 
-.xr-section-item input:focus + label {
-  border: 2px solid var(--xr-font-color0) !important;
+.xr-section-item > input:focus-visible + label,
+.xr-var-item > input:focus-visible + label,
+.xr-array-wrap > input:focus-visible + label,
+.xr-group-box-contents > input:focus-visible + label {
+  outline: auto;
 }
 
-.xr-section-item input:enabled + label:hover {
+.xr-section-item > input:enabled + label:hover,
+.xr-var-item > input:enabled + label:hover,
+.xr-array-wrap > input:enabled + label:hover,
+.xr-group-box-contents > input:enabled + label:hover {
   color: var(--xr-font-color0);
 }
 
@@ -969,11 +953,25 @@ body.vscode-dark {
   grid-column: 1;
   color: var(--xr-font-color2);
   font-weight: 500;
+  white-space: nowrap;
+}
+
+.xr-section-summary > em {
+  font-weight: normal;
+}
+
+.xr-span-grid {
+  grid-column-end: -1;
 }
 
 .xr-section-summary > span {
   display: inline-block;
-  padding-left: 0.5em;
+  padding-left: 0.3em;
+}
+
+.xr-group-box-contents > input:checked + label > span {
+  display: inline-block;
+  padding-left: 0.6em;
 }
 
 .xr-section-summary-in:disabled + label {
@@ -1001,9 +999,9 @@ body.vscode-dark {
 }
 
 .xr-section-summary,
-.xr-section-inline-details {
+.xr-section-inline-details,
+.xr-group-box-contents > label {
   padding-top: 4px;
-  padding-bottom: 4px;
 }
 
 .xr-section-inline-details {
@@ -1011,13 +1009,79 @@ body.vscode-dark {
 }
 
 .xr-section-details {
-  display: none;
   grid-column: 1 / -1;
+  margin-top: 4px;
   margin-bottom: 5px;
+}
+
+.xr-section-summary-in ~ .xr-section-details {
+  display: none;
 }
 
 .xr-section-summary-in:checked ~ .xr-section-details {
   display: contents;
+}
+
+.xr-children {
+  display: inline-grid;
+  grid-template-columns: 100%;
+  grid-column: 1 / -1;
+  padding-top: 4px;
+}
+
+.xr-group-box {
+  display: inline-grid;
+  grid-template-columns: 0px 30px auto;
+}
+
+.xr-group-box-vline {
+  grid-column-start: 1;
+  border-right: 0.2em solid;
+  border-color: var(--xr-border-color);
+  width: 0px;
+}
+
+.xr-group-box-hline {
+  grid-column-start: 2;
+  grid-row-start: 1;
+  height: 1em;
+  width: 26px;
+  border-bottom: 0.2em solid;
+  border-color: var(--xr-border-color);
+}
+
+.xr-group-box-contents {
+  grid-column-start: 3;
+  padding-bottom: 4px;
+}
+
+.xr-group-box-contents > label::before {
+  content: "📂";
+  padding-right: 0.3em;
+}
+
+.xr-group-box-contents > input:checked + label::before {
+  content: "📁";
+}
+
+.xr-group-box-contents > input:checked + label {
+  padding-bottom: 0px;
+}
+
+.xr-group-box-contents > input:checked ~ .xr-sections {
+  display: none;
+}
+
+.xr-group-box-contents > input + label > span {
+  display: none;
+}
+
+.xr-group-box-ellipsis {
+  font-size: 1.4em;
+  font-weight: 900;
+  color: var(--xr-font-color2);
+  letter-spacing: 0.15em;
+  cursor: default;
 }
 
 .xr-array-wrap {
@@ -1251,28 +1315,28 @@ dl.xr-attrs {
 Dimensions:         (realization: 1, influenced_dof: 1, time: 40, type: 9,
                      wave_direction: 1)
 Coordinates:
-  * influenced_dof  (influenced_dof) &lt;U5 20B &#x27;DOF_0&#x27;
   * realization     (realization) int64 8B 0
+  * influenced_dof  (influenced_dof) &lt;U5 20B &#x27;DOF_0&#x27;
   * time            (time) float64 320B 0.0 0.2083 0.4167 ... 7.708 7.917 8.125
+  * type            (type) object 72B &#x27;radiation&#x27; &#x27;friction&#x27; ... &#x27;gravity&#x27;
+  * wave_direction  (wave_direction) float64 8B 0.0
     omega           float64 8B 7.54
     freq            float64 8B 1.2
     period          float64 8B 0.8333
-  * type            (type) object 72B &#x27;radiation&#x27; &#x27;friction&#x27; ... &#x27;gravity&#x27;
-  * wave_direction  (wave_direction) float64 8B 0.0
 Data variables:
-    pos             (realization, influenced_dof, time) float64 320B 0.4257 ....
-    vel             (realization, influenced_dof, time) float64 320B 0.2902 ....
-    acc             (realization, influenced_dof, time) float64 320B -0.267 ....
-    force           (realization, influenced_dof, type, time) float64 3kB 505...
+    pos             (realization, influenced_dof, time) float64 320B ...
+    vel             (realization, influenced_dof, time) float64 320B ...
+    acc             (realization, influenced_dof, time) float64 320B ...
+    force           (realization, influenced_dof, type, time) float64 3kB ...
     wave_elev       (realization, wave_direction, time) float64 320B 0.433 .....
 Attributes:
-    time_created_utc:  2025-09-24 18:44:49.846085</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.Dataset</div></div><ul class='xr-sections'><li class='xr-section-item'><input id='section-0f8a35d4-d7ad-4504-8e42-13a985a03c27' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-0f8a35d4-d7ad-4504-8e42-13a985a03c27' class='xr-section-summary'  title='Expand/collapse section'>Dimensions:</label><div class='xr-section-inline-details'><ul class='xr-dim-list'><li><span class='xr-has-index'>realization</span>: 1</li><li><span class='xr-has-index'>influenced_dof</span>: 1</li><li><span class='xr-has-index'>time</span>: 40</li><li><span class='xr-has-index'>type</span>: 9</li><li><span class='xr-has-index'>wave_direction</span>: 1</li></ul></div><div class='xr-section-details'></div></li><li class='xr-section-item'><input id='section-b8cacf73-fddd-4f45-bdaa-4969478c2760' class='xr-section-summary-in' type='checkbox'  checked><label for='section-b8cacf73-fddd-4f45-bdaa-4969478c2760' class='xr-section-summary' >Coordinates: <span>(8)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>influenced_dof</span></div><div class='xr-var-dims'>(influenced_dof)</div><div class='xr-var-dtype'>&lt;U5</div><div class='xr-var-preview xr-preview'>&#x27;DOF_0&#x27;</div><input id='attrs-5953e4e2-3110-419f-9326-9a02c2fa2060' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-5953e4e2-3110-419f-9326-9a02c2fa2060' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-6d73bba7-15d7-4510-970e-8ea05b8979f1' class='xr-var-data-in' type='checkbox'><label for='data-6d73bba7-15d7-4510-970e-8ea05b8979f1' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Degree of freedom</dd></dl></div><div class='xr-var-data'><pre>array([&#x27;DOF_0&#x27;], dtype=&#x27;&lt;U5&#x27;)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>realization</span></div><div class='xr-var-dims'>(realization)</div><div class='xr-var-dtype'>int64</div><div class='xr-var-preview xr-preview'>0</div><input id='attrs-b3c547a8-dde0-47e8-889d-e50f6d51d128' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-b3c547a8-dde0-47e8-889d-e50f6d51d128' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-a4a93f75-8930-4f88-8d8f-d0b1a1c6aec3' class='xr-var-data-in' type='checkbox'><label for='data-a4a93f75-8930-4f88-8d8f-d0b1a1c6aec3' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Phase realization</dd><dt><span>units :</span></dt><dd></dd></dl></div><div class='xr-var-data'><pre>array([0])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>time</span></div><div class='xr-var-dims'>(time)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>0.0 0.2083 0.4167 ... 7.917 8.125</div><input id='attrs-765081bc-b4a9-4b60-b1ec-87e924dc1321' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-765081bc-b4a9-4b60-b1ec-87e924dc1321' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-1f3f2c28-83e3-409b-a6e1-d8adddaf6121' class='xr-var-data-in' type='checkbox'><label for='data-1f3f2c28-83e3-409b-a6e1-d8adddaf6121' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Time</dd><dt><span>units :</span></dt><dd>s</dd></dl></div><div class='xr-var-data'><pre>array([0.      , 0.208333, 0.416667, 0.625   , 0.833333, 1.041667, 1.25    ,
+    time_created_utc:  2026-05-04 19:01:28.538140</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.Dataset</div></div><ul class='xr-sections'><li class='xr-section-item'><input id='section-49e65b3d-0b95-43f7-bdd9-280bf5bfae3b' class='xr-section-summary-in' type='checkbox' disabled /><label for='section-49e65b3d-0b95-43f7-bdd9-280bf5bfae3b' class='xr-section-summary'>Dimensions:</label><div class='xr-section-inline-details'><ul class='xr-dim-list'><li><span class='xr-has-index'>realization</span>: 1</li><li><span class='xr-has-index'>influenced_dof</span>: 1</li><li><span class='xr-has-index'>time</span>: 40</li><li><span class='xr-has-index'>type</span>: 9</li><li><span class='xr-has-index'>wave_direction</span>: 1</li></ul></div></li><li class='xr-section-item'><input id='section-99bea98a-71f8-4a04-9a58-85f93b273bce' class='xr-section-summary-in' type='checkbox' checked /><label for='section-99bea98a-71f8-4a04-9a58-85f93b273bce' class='xr-section-summary' title='Expand/collapse section'>Coordinates: <span>(8)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>realization</span></div><div class='xr-var-dims'>(realization)</div><div class='xr-var-dtype'>int64</div><div class='xr-var-preview xr-preview'>0</div><input id='attrs-2edf1855-b08e-4a20-b2f3-538f7f3661be' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-2edf1855-b08e-4a20-b2f3-538f7f3661be' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-353db6e9-3aa5-407e-84cf-8cf27028608b' class='xr-var-data-in' type='checkbox'><label for='data-353db6e9-3aa5-407e-84cf-8cf27028608b' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Phase realization</dd><dt><span>units :</span></dt><dd></dd></dl></div><div class='xr-var-data'><pre>array([0])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>influenced_dof</span></div><div class='xr-var-dims'>(influenced_dof)</div><div class='xr-var-dtype'>&lt;U5</div><div class='xr-var-preview xr-preview'>&#x27;DOF_0&#x27;</div><input id='attrs-084df322-098b-42f3-a810-087e4a6cfd79' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-084df322-098b-42f3-a810-087e4a6cfd79' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-e714c344-88f2-467e-b7c7-3a0d6270c9e0' class='xr-var-data-in' type='checkbox'><label for='data-e714c344-88f2-467e-b7c7-3a0d6270c9e0' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Degree of freedom</dd></dl></div><div class='xr-var-data'><pre>array([&#x27;DOF_0&#x27;], dtype=&#x27;&lt;U5&#x27;)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>time</span></div><div class='xr-var-dims'>(time)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>0.0 0.2083 0.4167 ... 7.917 8.125</div><input id='attrs-320d46dd-59c3-4875-81b1-8e77e13003b0' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-320d46dd-59c3-4875-81b1-8e77e13003b0' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-572fd7b1-c22f-4023-af6f-858aa18d4a69' class='xr-var-data-in' type='checkbox'><label for='data-572fd7b1-c22f-4023-af6f-858aa18d4a69' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Time</dd><dt><span>units :</span></dt><dd>s</dd></dl></div><div class='xr-var-data'><pre>array([0.      , 0.208333, 0.416667, 0.625   , 0.833333, 1.041667, 1.25    ,
        1.458333, 1.666667, 1.875   , 2.083333, 2.291667, 2.5     , 2.708333,
        2.916667, 3.125   , 3.333333, 3.541667, 3.75    , 3.958333, 4.166667,
        4.375   , 4.583333, 4.791667, 5.      , 5.208333, 5.416667, 5.625   ,
        5.833333, 6.041667, 6.25    , 6.458333, 6.666667, 6.875   , 7.083333,
-       7.291667, 7.5     , 7.708333, 7.916667, 8.125   ])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>omega</span></div><div class='xr-var-dims'>()</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>7.54</div><input id='attrs-986fb065-8acc-44f2-9685-af966f744523' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-986fb065-8acc-44f2-9685-af966f744523' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-29718cb6-d421-4e16-a0f3-59dbb5169dc9' class='xr-var-data-in' type='checkbox'><label for='data-29718cb6-d421-4e16-a0f3-59dbb5169dc9' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Radial frequency</dd><dt><span>units :</span></dt><dd>rad/s</dd></dl></div><div class='xr-var-data'><pre>array(7.53982237)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>freq</span></div><div class='xr-var-dims'>()</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>1.2</div><input id='attrs-507b61a1-08cb-46f7-8f7b-4723a72f03e9' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-507b61a1-08cb-46f7-8f7b-4723a72f03e9' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-5c9052c4-2144-4960-a53c-f11d4c911db0' class='xr-var-data-in' type='checkbox'><label for='data-5c9052c4-2144-4960-a53c-f11d4c911db0' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Frequency</dd><dt><span>units :</span></dt><dd>Hz</dd></dl></div><div class='xr-var-data'><pre>array(1.2)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>period</span></div><div class='xr-var-dims'>()</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>0.8333</div><input id='attrs-a6fd30b6-4456-45cd-bf94-46e5e3d9f534' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-a6fd30b6-4456-45cd-bf94-46e5e3d9f534' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-ad6d38af-f0d2-498c-8ce5-c410af458752' class='xr-var-data-in' type='checkbox'><label for='data-ad6d38af-f0d2-498c-8ce5-c410af458752' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Period</dd><dt><span>units :</span></dt><dd>s</dd></dl></div><div class='xr-var-data'><pre>array(0.83333333)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>type</span></div><div class='xr-var-dims'>(type)</div><div class='xr-var-dtype'>object</div><div class='xr-var-preview xr-preview'>&#x27;radiation&#x27; ... &#x27;gravity&#x27;</div><input id='attrs-1c5f0923-6476-41f5-9c1d-a513f5b02bfa' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-1c5f0923-6476-41f5-9c1d-a513f5b02bfa' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-e89da1d6-415f-4c89-9f58-c06d0e3372f6' class='xr-var-data-in' type='checkbox'><label for='data-e89da1d6-415f-4c89-9f58-c06d0e3372f6' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Type</dd></dl></div><div class='xr-var-data'><pre>array([&#x27;radiation&#x27;, &#x27;friction&#x27;, &#x27;hydrostatics&#x27;, &#x27;Froude_Krylov&#x27;, &#x27;diffraction&#x27;,
-       &#x27;PTO&#x27;, &#x27;PTO_passive&#x27;, &#x27;buoyancy&#x27;, &#x27;gravity&#x27;], dtype=object)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>wave_direction</span></div><div class='xr-var-dims'>(wave_direction)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>0.0</div><input id='attrs-29fcb4a1-7523-4816-9cda-13faf9fcb484' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-29fcb4a1-7523-4816-9cda-13faf9fcb484' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-e18b0ece-ff27-429e-88e5-bd2a8b1d6a5e' class='xr-var-data-in' type='checkbox'><label for='data-e18b0ece-ff27-429e-88e5-bd2a8b1d6a5e' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Wave direction</dd><dt><span>units :</span></dt><dd>rad</dd></dl></div><div class='xr-var-data'><pre>array([0.])</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-bf3436af-69ad-4cfd-970e-f2f06d2e3d34' class='xr-section-summary-in' type='checkbox'  checked><label for='section-bf3436af-69ad-4cfd-970e-f2f06d2e3d34' class='xr-section-summary' >Data variables: <span>(5)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span>pos</span></div><div class='xr-var-dims'>(realization, influenced_dof, time)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>0.4257 0.4801 ... 0.2853 0.3598</div><input id='attrs-5680a724-f1f9-4ca6-800f-8eeb9e60b870' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-5680a724-f1f9-4ca6-800f-8eeb9e60b870' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-bfd76840-4104-4dda-a9a3-224a863c0359' class='xr-var-data-in' type='checkbox'><label for='data-bfd76840-4104-4dda-a9a3-224a863c0359' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Position</dd><dt><span>units :</span></dt><dd>m or rad</dd></dl></div><div class='xr-var-data'><pre>array([[[ 0.42566006,  0.4800767 ,  0.52206363,  0.55150632,
+       7.291667, 7.5     , 7.708333, 7.916667, 8.125   ])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>type</span></div><div class='xr-var-dims'>(type)</div><div class='xr-var-dtype'>object</div><div class='xr-var-preview xr-preview'>&#x27;radiation&#x27; ... &#x27;gravity&#x27;</div><input id='attrs-fa628c06-8623-42d5-8ea1-4b865707b009' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-fa628c06-8623-42d5-8ea1-4b865707b009' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-1f7f987f-62bf-47ad-a865-3be2f15e3ddd' class='xr-var-data-in' type='checkbox'><label for='data-1f7f987f-62bf-47ad-a865-3be2f15e3ddd' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Type</dd></dl></div><div class='xr-var-data'><pre>array([&#x27;radiation&#x27;, &#x27;friction&#x27;, &#x27;hydrostatics&#x27;, &#x27;Froude_Krylov&#x27;, &#x27;diffraction&#x27;,
+       &#x27;PTO&#x27;, &#x27;PTO_passive&#x27;, &#x27;buoyancy&#x27;, &#x27;gravity&#x27;], dtype=object)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>wave_direction</span></div><div class='xr-var-dims'>(wave_direction)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>0.0</div><input id='attrs-0df6dc4b-fc94-464b-bbba-0693b82069b8' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-0df6dc4b-fc94-464b-bbba-0693b82069b8' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-42dab82b-69a7-4962-9b90-25ea42620068' class='xr-var-data-in' type='checkbox'><label for='data-42dab82b-69a7-4962-9b90-25ea42620068' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Wave direction</dd><dt><span>units :</span></dt><dd>rad</dd></dl></div><div class='xr-var-data'><pre>array([0.])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>omega</span></div><div class='xr-var-dims'>()</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>7.54</div><input id='attrs-bf52be12-47e7-4873-8d77-4adde0996c81' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-bf52be12-47e7-4873-8d77-4adde0996c81' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-e7f06246-07ab-4ed8-891d-5f31eac43e82' class='xr-var-data-in' type='checkbox'><label for='data-e7f06246-07ab-4ed8-891d-5f31eac43e82' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Radial frequency</dd><dt><span>units :</span></dt><dd>rad/s</dd></dl></div><div class='xr-var-data'><pre>array(7.53982237)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>freq</span></div><div class='xr-var-dims'>()</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>1.2</div><input id='attrs-9c2445e9-725e-46b3-b997-2ca836a476bb' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-9c2445e9-725e-46b3-b997-2ca836a476bb' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-9df50b86-33dd-4940-9736-53efed0c86f4' class='xr-var-data-in' type='checkbox'><label for='data-9df50b86-33dd-4940-9736-53efed0c86f4' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Frequency</dd><dt><span>units :</span></dt><dd>Hz</dd></dl></div><div class='xr-var-data'><pre>array(1.2)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>period</span></div><div class='xr-var-dims'>()</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>0.8333</div><input id='attrs-115fcfca-291e-4af8-a9ea-ac7314500bfe' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-115fcfca-291e-4af8-a9ea-ac7314500bfe' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-4291831a-d587-4958-932f-3ca774a5914c' class='xr-var-data-in' type='checkbox'><label for='data-4291831a-d587-4958-932f-3ca774a5914c' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Period</dd><dt><span>units :</span></dt><dd>s</dd></dl></div><div class='xr-var-data'><pre>array(0.83333333)</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-56cf1137-752f-43b5-be18-fc88074393b1' class='xr-section-summary-in' type='checkbox' checked /><label for='section-56cf1137-752f-43b5-be18-fc88074393b1' class='xr-section-summary' title='Expand/collapse section'>Data variables: <span>(5)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span>pos</span></div><div class='xr-var-dims'>(realization, influenced_dof, time)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-2f6019d3-aec7-4a01-b3c4-2129e7168ef6' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-2f6019d3-aec7-4a01-b3c4-2129e7168ef6' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-7fbf6936-e548-4fe5-84f6-2a07ef7214c7' class='xr-var-data-in' type='checkbox'><label for='data-7fbf6936-e548-4fe5-84f6-2a07ef7214c7' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Position</dd><dt><span>units :</span></dt><dd>m or rad</dd></dl></div><div class='xr-var-data'><pre>Array([[[ 0.42566006,  0.4800767 ,  0.52206363,  0.55150632,
           0.567324  ,  0.5678427 ,  0.55243596,  0.5219739 ,
           0.47867082,  0.42601837,  0.36715071,  0.30229327,
           0.22945603,  0.14853191,  0.06287658, -0.02396041,
@@ -1281,7 +1345,7 @@ Attributes:
          -0.56270131, -0.56662446, -0.55655745, -0.53177478,
          -0.4936389 , -0.44403786, -0.38344995, -0.31240934,
          -0.233385  , -0.14929742, -0.06154801,  0.02865539,
-          0.11841612,  0.20449572,  0.28531693,  0.3598396 ]]])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>vel</span></div><div class='xr-var-dims'>(realization, influenced_dof, time)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>0.2902 0.2344 ... 0.3741 0.3364</div><input id='attrs-eb87be2d-a6e6-4b04-962f-c4eb60eb0e94' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-eb87be2d-a6e6-4b04-962f-c4eb60eb0e94' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-491b63b7-b1a7-4677-9950-40db122dcec6' class='xr-var-data-in' type='checkbox'><label for='data-491b63b7-b1a7-4677-9950-40db122dcec6' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Velocity</dd><dt><span>units :</span></dt><dd>m/s or rad/s</dd></dl></div><div class='xr-var-data'><pre>array([[[ 0.29021109,  0.23435865,  0.17173053,  0.10710405,
+          0.11841612,  0.20449572,  0.28531693,  0.3598396 ]]],      dtype=float64)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>vel</span></div><div class='xr-var-dims'>(realization, influenced_dof, time)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-9a97766e-f01f-49f8-bb36-6fa1201a4e13' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-9a97766e-f01f-49f8-bb36-6fa1201a4e13' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-741da6a6-7898-4f83-90a0-5915a011a464' class='xr-var-data-in' type='checkbox'><label for='data-741da6a6-7898-4f83-90a0-5915a011a464' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Velocity</dd><dt><span>units :</span></dt><dd>m/s or rad/s</dd></dl></div><div class='xr-var-data'><pre>Array([[[ 0.29021109,  0.23435865,  0.17173053,  0.10710405,
           0.04033366, -0.03297438, -0.11130586, -0.18228663,
          -0.23339676, -0.26638606, -0.29570915, -0.33183709,
          -0.37055241, -0.40037997, -0.41591527, -0.41982522,
@@ -1290,7 +1354,7 @@ Attributes:
          -0.05034657,  0.01649455,  0.08384672,  0.1498982 ,
           0.21157585,  0.26728061,  0.31705145,  0.35989471,
           0.39327973,  0.41589351,  0.42865021,  0.43193263,
-          0.42405463,  0.40407867,  0.37408861,  0.33638462]]])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>acc</span></div><div class='xr-var-dims'>(realization, influenced_dof, time)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>-0.267 -0.2885 ... -0.1414 -0.1996</div><input id='attrs-e3e73e0a-94fa-4058-a5d5-488934370c82' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-e3e73e0a-94fa-4058-a5d5-488934370c82' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-7855fee3-4bd6-43df-be0c-c2f0e7d936cd' class='xr-var-data-in' type='checkbox'><label for='data-7855fee3-4bd6-43df-be0c-c2f0e7d936cd' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Acceleration</dd><dt><span>units :</span></dt><dd>m/s^2 or rad/s^2</dd></dl></div><div class='xr-var-data'><pre>array([[[-0.26700436, -0.28851261, -0.28629876, -0.3123805 ,
+          0.42405463,  0.40407867,  0.37408861,  0.33638462]]],      dtype=float64)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>acc</span></div><div class='xr-var-dims'>(realization, influenced_dof, time)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-e3dc0411-c2e7-4993-871e-86d96e606a82' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-e3dc0411-c2e7-4993-871e-86d96e606a82' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-242424b8-940b-4d3b-9431-e1cf74d46154' class='xr-var-data-in' type='checkbox'><label for='data-242424b8-940b-4d3b-9431-e1cf74d46154' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Acceleration</dd><dt><span>units :</span></dt><dd>m/s^2 or rad/s^2</dd></dl></div><div class='xr-var-data'><pre>Array([[[-0.26700436, -0.28851261, -0.28629876, -0.3123805 ,
          -0.35502706, -0.36994638, -0.34924355, -0.29884116,
          -0.21521301, -0.13656284, -0.13248872, -0.18831692,
          -0.19470765, -0.10904813, -0.02122424,  0.00300173,
@@ -1299,7 +1363,7 @@ Attributes:
           0.29733476,  0.32257048,  0.34438995,  0.30880483,
           0.26014193,  0.25309024,  0.24583612,  0.18499295,
           0.11247515,  0.08378938,  0.0610201 , -0.00930064,
-         -0.08919932, -0.12246767, -0.14136626, -0.19960085]]])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>force</span></div><div class='xr-var-dims'>(realization, influenced_dof, type, time)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>505.1 565.9 ... -4.905e+04</div><input id='attrs-1ed3a7be-3637-4649-a036-2579d9a437a5' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-1ed3a7be-3637-4649-a036-2579d9a437a5' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-9137d4a6-775c-4b3b-bbdf-37dce0cb46b3' class='xr-var-data-in' type='checkbox'><label for='data-9137d4a6-775c-4b3b-bbdf-37dce0cb46b3' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Force or moment</dd><dt><span>units :</span></dt><dd>N or Nm</dd></dl></div><div class='xr-var-data'><pre>array([[[[ 5.05060582e+02,  5.65890803e+02,  5.84731493e+02,
+         -0.08919932, -0.12246767, -0.14136626, -0.19960085]]],      dtype=float64)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>force</span></div><div class='xr-var-dims'>(realization, influenced_dof, type, time)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-10fbf2ce-55fe-4c3b-b3e5-9fca3bf40a27' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-10fbf2ce-55fe-4c3b-b3e5-9fca3bf40a27' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-a250d02c-431d-4d6c-acf6-0a41cd3c5eb8' class='xr-var-data-in' type='checkbox'><label for='data-a250d02c-431d-4d6c-acf6-0a41cd3c5eb8' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Force or moment</dd><dt><span>units :</span></dt><dd>N or Nm</dd></dl></div><div class='xr-var-data'><pre>Array([[[[ 5.05060582e+02,  5.65890803e+02,  5.84731493e+02,
            6.49179171e+02,  7.38889401e+02,  7.78678182e+02,
            7.55061982e+02,  6.77125077e+02,  5.36962030e+02,
            3.97758871e+02,  3.77876235e+02,  4.54919802e+02,
@@ -1339,7 +1403,7 @@ Attributes:
           -4.90500000e+04, -4.90500000e+04, -4.90500000e+04,
           -4.90500000e+04, -4.90500000e+04, -4.90500000e+04,
           -4.90500000e+04, -4.90500000e+04, -4.90500000e+04,
-          -4.90500000e+04]]]])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>wave_elev</span></div><div class='xr-var-dims'>(realization, wave_direction, time)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>0.433 0.3886 ... 0.4891 0.4668</div><input id='attrs-6385710f-53eb-43f0-a269-f2f623d7a619' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-6385710f-53eb-43f0-a269-f2f623d7a619' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-479a1239-536c-45ea-b8f1-403c89018486' class='xr-var-data-in' type='checkbox'><label for='data-479a1239-536c-45ea-b8f1-403c89018486' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Wave elevation</dd><dt><span>units :</span></dt><dd>m</dd></dl></div><div class='xr-var-data'><pre>array([[[ 0.4330127 ,  0.38857298,  0.3345653 ,  0.27231952,
+          -4.90500000e+04]]]], dtype=float64)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>wave_elev</span></div><div class='xr-var-dims'>(realization, wave_direction, time)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>0.433 0.3886 ... 0.4891 0.4668</div><input id='attrs-25884562-efe2-4edb-8585-58c4ab4d303a' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-25884562-efe2-4edb-8585-58c4ab4d303a' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-19b96b4c-fe60-43a7-aac1-99fd0777c113' class='xr-var-data-in' type='checkbox'><label for='data-19b96b4c-fe60-43a7-aac1-99fd0777c113' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Wave elevation</dd><dt><span>units :</span></dt><dd>m</dd></dl></div><div class='xr-var-data'><pre>array([[[ 0.4330127 ,  0.38857298,  0.3345653 ,  0.27231952,
           0.20336832,  0.12940952,  0.05226423, -0.02616798,
          -0.10395585, -0.17918397, -0.25      , -0.3146602 ,
          -0.37157241, -0.41933528, -0.45677273, -0.48296291,
@@ -1348,23 +1412,7 @@ Attributes:
          -0.20336832, -0.12940952, -0.05226423,  0.02616798,
           0.10395585,  0.17918397,  0.25      ,  0.3146602 ,
           0.37157241,  0.41933528,  0.45677273,  0.48296291,
-          0.49726095,  0.49931477,  0.4890738 ,  0.46679021]]])</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-6e1d4c0b-eea2-4df0-a873-14312151b3f0' class='xr-section-summary-in' type='checkbox'  ><label for='section-6e1d4c0b-eea2-4df0-a873-14312151b3f0' class='xr-section-summary' >Indexes: <span>(5)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-index-name'><div>influenced_dof</div></div><div class='xr-index-preview'>PandasIndex</div><input type='checkbox' disabled/><label></label><input id='index-7a9eb859-7083-413d-88e7-d4f4e34d605e' class='xr-index-data-in' type='checkbox'/><label for='index-7a9eb859-7083-413d-88e7-d4f4e34d605e' title='Show/Hide index repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-index-data'><pre>PandasIndex(Index([&#x27;DOF_0&#x27;], dtype=&#x27;object&#x27;, name=&#x27;influenced_dof&#x27;))</pre></div></li><li class='xr-var-item'><div class='xr-index-name'><div>realization</div></div><div class='xr-index-preview'>PandasIndex</div><input type='checkbox' disabled/><label></label><input id='index-11bb57b6-d316-4d94-b578-19cb86933072' class='xr-index-data-in' type='checkbox'/><label for='index-11bb57b6-d316-4d94-b578-19cb86933072' title='Show/Hide index repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-index-data'><pre>PandasIndex(Index([0], dtype=&#x27;int64&#x27;, name=&#x27;realization&#x27;))</pre></div></li><li class='xr-var-item'><div class='xr-index-name'><div>time</div></div><div class='xr-index-preview'>PandasIndex</div><input type='checkbox' disabled/><label></label><input id='index-3f7f4b7e-843c-46d2-af78-f7574aeeb3a8' class='xr-index-data-in' type='checkbox'/><label for='index-3f7f4b7e-843c-46d2-af78-f7574aeeb3a8' title='Show/Hide index repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-index-data'><pre>PandasIndex(Index([                0.0, 0.20833333333333334,  0.4166666666666667,
-                     0.625,  0.8333333333333334,  1.0416666666666667,
-                      1.25,  1.4583333333333335,  1.6666666666666667,
-                     1.875,  2.0833333333333335,   2.291666666666667,
-                       2.5,  2.7083333333333335,   2.916666666666667,
-                     3.125,  3.3333333333333335,   3.541666666666667,
-                      3.75,  3.9583333333333335,   4.166666666666667,
-                     4.375,   4.583333333333334,   4.791666666666667,
-                       5.0,   5.208333333333334,   5.416666666666667,
-                     5.625,   5.833333333333334,   6.041666666666667,
-                      6.25,   6.458333333333334,   6.666666666666667,
-                     6.875,   7.083333333333334,   7.291666666666667,
-                       7.5,   7.708333333333334,   7.916666666666667,
-                     8.125],
-      dtype=&#x27;float64&#x27;, name=&#x27;time&#x27;))</pre></div></li><li class='xr-var-item'><div class='xr-index-name'><div>type</div></div><div class='xr-index-preview'>PandasIndex</div><input type='checkbox' disabled/><label></label><input id='index-2b1b6eca-72ae-4e03-b166-f5e8affa3e7a' class='xr-index-data-in' type='checkbox'/><label for='index-2b1b6eca-72ae-4e03-b166-f5e8affa3e7a' title='Show/Hide index repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-index-data'><pre>PandasIndex(Index([&#x27;radiation&#x27;, &#x27;friction&#x27;, &#x27;hydrostatics&#x27;, &#x27;Froude_Krylov&#x27;, &#x27;diffraction&#x27;,
-       &#x27;PTO&#x27;, &#x27;PTO_passive&#x27;, &#x27;buoyancy&#x27;, &#x27;gravity&#x27;],
-      dtype=&#x27;object&#x27;, name=&#x27;type&#x27;))</pre></div></li><li class='xr-var-item'><div class='xr-index-name'><div>wave_direction</div></div><div class='xr-index-preview'>PandasIndex</div><input type='checkbox' disabled/><label></label><input id='index-ae6b7073-69fa-4d5a-b7ec-78715b21a059' class='xr-index-data-in' type='checkbox'/><label for='index-ae6b7073-69fa-4d5a-b7ec-78715b21a059' title='Show/Hide index repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-index-data'><pre>PandasIndex(Index([0.0], dtype=&#x27;float64&#x27;, name=&#x27;wave_direction&#x27;))</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-3b32b90e-4b21-4b69-9b7b-c09685818192' class='xr-section-summary-in' type='checkbox'  checked><label for='section-3b32b90e-4b21-4b69-9b7b-c09685818192' class='xr-section-summary' >Attributes: <span>(1)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'><dt><span>time_created_utc :</span></dt><dd>2025-09-24 18:44:49.846085</dd></dl></div></li></ul></div></div></div>
+          0.49726095,  0.49931477,  0.4890738 ,  0.46679021]]])</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-74b1975b-da50-42f6-971a-8bff518b583e' class='xr-section-summary-in' type='checkbox' checked /><label for='section-74b1975b-da50-42f6-971a-8bff518b583e' class='xr-section-summary' title='Expand/collapse section'>Attributes: <span>(1)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'><dt><span>time_created_utc :</span></dt><dd>2026-05-04 19:01:28.538140</dd></dl></div></li></ul></div></div></div>
 </div>
 <section id="Time-histories">
 <h4>Time histories<a class="headerlink" href="#Time-histories" title="Link to this heading"></a></h4>
@@ -1462,7 +1510,7 @@ Attributes:
 <div class="highlight"><pre>
 &lt;&gt;:49: SyntaxWarning: invalid escape sequence &#39;\p&#39;
 &lt;&gt;:49: SyntaxWarning: invalid escape sequence &#39;\p&#39;
-/tmp/ipykernel_3857/1401806719.py:49: SyntaxWarning: invalid escape sequence &#39;\p&#39;
+/tmp/ipykernel_3469/1401806719.py:49: SyntaxWarning: invalid escape sequence &#39;\p&#39;
   label=f&#39;Peak torque limit ($\pm${torque_peak_max}Nm)&#39;,
 </pre></div></div>
 </div>
@@ -1501,7 +1549,7 @@ Attributes:
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.legend.Legend at 0x7f81f8d76090&gt;
+&lt;matplotlib.legend.Legend at 0x7f9860b13f80&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1610,7 +1658,7 @@ WARNING:wecopttool.core:Linear damping for DOF &#34;Heave&#34; has negative or c
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area rendered_html docutils container">
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[18:44:50] </span><span style="color: #808000; text-decoration-color: #808000">WARNING </span> Linear damping for DOF <span style="color: #008000; text-decoration-color: #008000">"Heave"</span> has negative or close to zero terms. Shifting up damping terms
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[19:01:32] </span><span style="color: #808000; text-decoration-color: #808000">WARNING </span> Linear damping for DOF <span style="color: #008000; text-decoration-color: #008000">"Heave"</span> has negative or close to zero terms. Shifting up damping terms
 <span style="color: #7fbfbf; text-decoration-color: #7fbfbf">           </span>         <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">9</span><span style="font-weight: bold">]</span> to a minimum of <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1e-06</span> N/<span style="font-weight: bold">(</span>m/s<span style="font-weight: bold">)</span>
 </pre></div>
 </div>
@@ -1637,7 +1685,7 @@ WARNING:wecopttool.core:Linear damping for DOF &#34;Heave&#34; has negative or c
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Optimization terminated successfully    (Exit mode 0)
-            Current function value: -1.527230939046033
+            Current function value: -1.527231471027097
             Iterations: 22
             Function evaluations: 22
             Gradient evaluations: 22
@@ -1649,7 +1697,7 @@ Optimization terminated successfully    (Exit mode 0)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area rendered_html docutils container">
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[18:44:52] </span><span style="color: #808000; text-decoration-color: #808000">WARNING </span> Linear damping for DOF <span style="color: #008000; text-decoration-color: #008000">"Heave"</span> has negative or close to zero terms. Shifting up damping terms
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[19:01:33] </span><span style="color: #808000; text-decoration-color: #808000">WARNING </span> Linear damping for DOF <span style="color: #008000; text-decoration-color: #008000">"Heave"</span> has negative or close to zero terms. Shifting up damping terms
 <span style="color: #7fbfbf; text-decoration-color: #7fbfbf">           </span>         <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">9</span><span style="font-weight: bold">]</span> to a minimum of <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1e-06</span> N/<span style="font-weight: bold">(</span>m/s<span style="font-weight: bold">)</span>
 </pre></div>
 </div>
@@ -1676,7 +1724,7 @@ WARNING:wecopttool.core:Linear damping for DOF &#34;Heave&#34; has negative or c
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Optimization terminated successfully    (Exit mode 0)
-            Current function value: -1.5400133129677298
+            Current function value: -1.5400133977090018
             Iterations: 27
             Function evaluations: 27
             Gradient evaluations: 27
@@ -1688,7 +1736,7 @@ Optimization terminated successfully    (Exit mode 0)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area rendered_html docutils container">
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[18:44:55] </span><span style="color: #808000; text-decoration-color: #808000">WARNING </span> Linear damping for DOF <span style="color: #008000; text-decoration-color: #008000">"Heave"</span> has negative or close to zero terms. Shifting up damping terms
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[19:01:35] </span><span style="color: #808000; text-decoration-color: #808000">WARNING </span> Linear damping for DOF <span style="color: #008000; text-decoration-color: #008000">"Heave"</span> has negative or close to zero terms. Shifting up damping terms
 <span style="color: #7fbfbf; text-decoration-color: #7fbfbf">           </span>         <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">9</span><span style="font-weight: bold">]</span> to a minimum of <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1e-06</span> N/<span style="font-weight: bold">(</span>m/s<span style="font-weight: bold">)</span>
 </pre></div>
 </div>
@@ -1715,10 +1763,10 @@ WARNING:wecopttool.core:Linear damping for DOF &#34;Heave&#34; has negative or c
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Optimization terminated successfully    (Exit mode 0)
-            Current function value: -1.5528881120038893
-            Iterations: 41
-            Function evaluations: 41
-            Gradient evaluations: 41
+            Current function value: -1.552888305634693
+            Iterations: 37
+            Function evaluations: 38
+            Gradient evaluations: 37
 * Mass: 3553.66 kg
 * Optimal average electrical power: -1.55 kW
 </pre></div></div>
@@ -1727,7 +1775,7 @@ Optimization terminated successfully    (Exit mode 0)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area rendered_html docutils container">
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[18:44:59] </span><span style="color: #808000; text-decoration-color: #808000">WARNING </span> Linear damping for DOF <span style="color: #008000; text-decoration-color: #008000">"Heave"</span> has negative or close to zero terms. Shifting up damping terms
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[19:01:37] </span><span style="color: #808000; text-decoration-color: #808000">WARNING </span> Linear damping for DOF <span style="color: #008000; text-decoration-color: #008000">"Heave"</span> has negative or close to zero terms. Shifting up damping terms
 <span style="color: #7fbfbf; text-decoration-color: #7fbfbf">           </span>         <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">9</span><span style="font-weight: bold">]</span> to a minimum of <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1e-06</span> N/<span style="font-weight: bold">(</span>m/s<span style="font-weight: bold">)</span>
 </pre></div>
 </div>
@@ -1754,10 +1802,10 @@ WARNING:wecopttool.core:Linear damping for DOF &#34;Heave&#34; has negative or c
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Optimization terminated successfully    (Exit mode 0)
-            Current function value: -1.5658556597843272
-            Iterations: 60
-            Function evaluations: 60
-            Gradient evaluations: 60
+            Current function value: -1.5658556928431622
+            Iterations: 47
+            Function evaluations: 47
+            Gradient evaluations: 47
 * Mass: 4264.39 kg
 * Optimal average electrical power: -1.57 kW
 </pre></div></div>
@@ -1766,7 +1814,7 @@ Optimization terminated successfully    (Exit mode 0)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area rendered_html docutils container">
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[18:45:05] </span><span style="color: #808000; text-decoration-color: #808000">WARNING </span> Linear damping for DOF <span style="color: #008000; text-decoration-color: #008000">"Heave"</span> has negative or close to zero terms. Shifting up damping terms
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[19:01:38] </span><span style="color: #808000; text-decoration-color: #808000">WARNING </span> Linear damping for DOF <span style="color: #008000; text-decoration-color: #008000">"Heave"</span> has negative or close to zero terms. Shifting up damping terms
 <span style="color: #7fbfbf; text-decoration-color: #7fbfbf">           </span>         <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">9</span><span style="font-weight: bold">]</span> to a minimum of <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1e-06</span> N/<span style="font-weight: bold">(</span>m/s<span style="font-weight: bold">)</span>
 </pre></div>
 </div>
@@ -1793,10 +1841,10 @@ WARNING:wecopttool.core:Linear damping for DOF &#34;Heave&#34; has negative or c
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Optimization terminated successfully    (Exit mode 0)
-            Current function value: -1.576869532942704
-            Iterations: 56
-            Function evaluations: 56
-            Gradient evaluations: 56
+            Current function value: -1.5768695983779069
+            Iterations: 66
+            Function evaluations: 66
+            Gradient evaluations: 66
 * Mass: 4975.13 kg
 * Optimal average electrical power: -1.58 kW
 </pre></div></div>
@@ -1805,7 +1853,7 @@ Optimization terminated successfully    (Exit mode 0)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area rendered_html docutils container">
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[18:45:11] </span><span style="color: #808000; text-decoration-color: #808000">WARNING </span> Linear damping for DOF <span style="color: #008000; text-decoration-color: #008000">"Heave"</span> has negative or close to zero terms. Shifting up damping terms
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[19:01:40] </span><span style="color: #808000; text-decoration-color: #808000">WARNING </span> Linear damping for DOF <span style="color: #008000; text-decoration-color: #008000">"Heave"</span> has negative or close to zero terms. Shifting up damping terms
 <span style="color: #7fbfbf; text-decoration-color: #7fbfbf">           </span>         <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">9</span><span style="font-weight: bold">]</span> to a minimum of <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1e-06</span> N/<span style="font-weight: bold">(</span>m/s<span style="font-weight: bold">)</span>
 </pre></div>
 </div>
@@ -1832,10 +1880,10 @@ WARNING:wecopttool.core:Linear damping for DOF &#34;Heave&#34; has negative or c
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Optimization terminated successfully    (Exit mode 0)
-            Current function value: -1.4594517788687837
-            Iterations: 58
-            Function evaluations: 59
-            Gradient evaluations: 58
+            Current function value: -1.4594517470582171
+            Iterations: 70
+            Function evaluations: 71
+            Gradient evaluations: 70
 * Mass: 5685.86 kg
 * Optimal average electrical power: -1.46 kW
 </pre></div></div>
@@ -1844,7 +1892,7 @@ Optimization terminated successfully    (Exit mode 0)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area rendered_html docutils container">
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[18:45:16] </span><span style="color: #808000; text-decoration-color: #808000">WARNING </span> Linear damping for DOF <span style="color: #008000; text-decoration-color: #008000">"Heave"</span> has negative or close to zero terms. Shifting up damping terms
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[19:01:42] </span><span style="color: #808000; text-decoration-color: #808000">WARNING </span> Linear damping for DOF <span style="color: #008000; text-decoration-color: #008000">"Heave"</span> has negative or close to zero terms. Shifting up damping terms
 <span style="color: #7fbfbf; text-decoration-color: #7fbfbf">           </span>         <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">9</span><span style="font-weight: bold">]</span> to a minimum of <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1e-06</span> N/<span style="font-weight: bold">(</span>m/s<span style="font-weight: bold">)</span>
 </pre></div>
 </div>
@@ -1871,10 +1919,10 @@ WARNING:wecopttool.core:Linear damping for DOF &#34;Heave&#34; has negative or c
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Optimization terminated successfully    (Exit mode 0)
-            Current function value: -1.037266483176456
-            Iterations: 56
-            Function evaluations: 57
-            Gradient evaluations: 56
+            Current function value: -1.0372665083887311
+            Iterations: 68
+            Function evaluations: 68
+            Gradient evaluations: 68
 * Mass: 6396.59 kg
 * Optimal average electrical power: -1.04 kW
 </pre></div></div>
@@ -1883,7 +1931,7 @@ Optimization terminated successfully    (Exit mode 0)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area rendered_html docutils container">
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[18:45:22] </span><span style="color: #808000; text-decoration-color: #808000">WARNING </span> Linear damping for DOF <span style="color: #008000; text-decoration-color: #008000">"Heave"</span> has negative or close to zero terms. Shifting up damping terms
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[19:01:44] </span><span style="color: #808000; text-decoration-color: #808000">WARNING </span> Linear damping for DOF <span style="color: #008000; text-decoration-color: #008000">"Heave"</span> has negative or close to zero terms. Shifting up damping terms
 <span style="color: #7fbfbf; text-decoration-color: #7fbfbf">           </span>         <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">9</span><span style="font-weight: bold">]</span> to a minimum of <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1e-06</span> N/<span style="font-weight: bold">(</span>m/s<span style="font-weight: bold">)</span>
 </pre></div>
 </div>
@@ -1895,10 +1943,10 @@ Optimization terminated successfully    (Exit mode 0)
 
 Run 8 of 8: Mass ratio: 1.00
 Optimization terminated successfully    (Exit mode 0)
-            Current function value: 6.4913330630265106e-15
-            Iterations: 2
-            Function evaluations: 2
-            Gradient evaluations: 2
+            Current function value: 3.715259039551879e-15
+            Iterations: 3
+            Function evaluations: 3
+            Gradient evaluations: 3
 * Mass: 7107.32 kg
 * Optimal average electrical power: 0.00 kW
 </pre></div></div>
@@ -1956,7 +2004,7 @@ the minimum absolute line tension. We can see that for mass fractions equal to a
 <div class="highlight"><pre>
 &lt;&gt;:6: SyntaxWarning: invalid escape sequence &#39;\o&#39;
 &lt;&gt;:6: SyntaxWarning: invalid escape sequence &#39;\o&#39;
-/tmp/ipykernel_3857/129934492.py:6: SyntaxWarning: invalid escape sequence &#39;\o&#39;
+/tmp/ipykernel_3469/129934492.py:6: SyntaxWarning: invalid escape sequence &#39;\o&#39;
   ax.set_ylabel(&#34;Average electric power, $\overline{P}_e$ [kW]&#34;, color=cc[0])
 </pre></div></div>
 </div>
@@ -1966,7 +2014,7 @@ the minimum absolute line tension. We can see that for mass fractions equal to a
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.legend.Legend at 0x7f81f8c742f0&gt;
+&lt;matplotlib.legend.Legend at 0x7f9860dc9e80&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1977,7 +2025,7 @@ the minimum absolute line tension. We can see that for mass fractions equal to a
 </div>
 </div>
 <script type="application/vnd.jupyter.widget-state+json">
-{"state": {"1589ae49ebfb4541a4d5d78e79c27ac3": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "7bcb8a19b90d4ee9ad91c07bb98560f5": {"model_name": "OutputModel", "model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/output", "_model_module_version": "1.0.0", "_model_name": "OutputModel", "_view_count": null, "_view_module": "@jupyter-widgets/output", "_view_module_version": "1.0.0", "_view_name": "OutputView", "layout": "IPY_MODEL_1589ae49ebfb4541a4d5d78e79c27ac3", "msg_id": "", "outputs": [{"output_type": "display_data", "metadata": {}, "data": {"text/plain": "Solving BEM problems \u001b[38;2;114;156;31m\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u001b[0m \u001b[35m100%\u001b[0m \u001b[33m0:00:12\u001b[0m\n", "text/html": "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\">Solving BEM problems <span style=\"color: #729c1f; text-decoration-color: #729c1f\">\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501</span> <span style=\"color: #800080; text-decoration-color: #800080\">100%</span> <span style=\"color: #808000; text-decoration-color: #808000\">0:00:12</span>\n</pre>\n"}}], "tabbable": null, "tooltip": null}}}, "version_major": 2, "version_minor": 0}
+{"state": {"a9a5002bded94acdb2b899900fad9505": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "1c9b1e099cfd41ab9ec412363bbae3b7": {"model_name": "OutputModel", "model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/output", "_model_module_version": "1.0.0", "_model_name": "OutputModel", "_view_count": null, "_view_module": "@jupyter-widgets/output", "_view_module_version": "1.0.0", "_view_name": "OutputView", "layout": "IPY_MODEL_a9a5002bded94acdb2b899900fad9505", "msg_id": "", "outputs": [{"output_type": "display_data", "metadata": {}, "data": {"text/plain": "Solving BEM problems \u001b[38;2;114;156;31m\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u001b[0m \u001b[35m100%\u001b[0m \u001b[33m0:00:13\u001b[0m\n", "text/html": "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\">Solving BEM problems <span style=\"color: #729c1f; text-decoration-color: #729c1f\">\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501</span> <span style=\"color: #800080; text-decoration-color: #800080\">100%</span> <span style=\"color: #808000; text-decoration-color: #808000\">0:00:13</span>\n</pre>\n"}}], "tabbable": null, "tooltip": null}}}, "version_major": 2, "version_minor": 0}
 </script></section>
 </section>
 </section>
